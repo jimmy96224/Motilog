@@ -3,18 +3,20 @@ class Public::InstrumentsController < ApplicationController
     @instrument = Instrument.new
   end
 
- def create
-    @instrument = Instrument.new(instrument_params)
+  def create
+      @user = User.find(params[:user_id])
+      @instrument = Instrument.new
     if @instrument.save
       flash[:notice] = "投稿に成功しました。"
-      redirect_to user_path(current)
+      redirect_to user_path(current_user)
     else
-     flash.now[:notice] = "投稿に失敗しました。"
+      flash.now[:notice] = "投稿に失敗しました。"
       render :new
     end
- end
+  end
 
   def show
+    @instrument = Instrument.find(params[:id], user_id: params[:user_id])
   end
 
   def edit
@@ -28,7 +30,7 @@ class Public::InstrumentsController < ApplicationController
 
   private
     def instrument_params
-      params.require(:instrument).permit(:name, :profile, :instrument_image)
+      params.require(:instrument).permit(:name, :profile, :instrument_image, :user_id)
     end
 
 end

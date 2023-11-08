@@ -7,9 +7,6 @@ devise_for :users, skip: :all
    delete 'logout' => 'public/sessions#destroy'
    get 'signup' => 'public/registrations#new'
    post 'signup' => 'public/registrations#create'
-#   get 'user/edit' => 'public/registrations#edit'
-#   patch 'user/edit' => 'public/registrations#update'
-#   delete 'user/edit' => 'public/registrations#destroy'
  end
 # 以下URI変更のためコメントアウト
   # devise_for :users,skip: [:passwords], controllers: {

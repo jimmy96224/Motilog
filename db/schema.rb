@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2023_11_07_094145) do
   end
 
   create_table "instruments", force: :cascade do |t|
+    t.integer "user_id", null: false
     t.string "name", null: false
     t.string "profile", null: false
     t.datetime "created_at", precision: 6, null: false

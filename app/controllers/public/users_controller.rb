@@ -2,6 +2,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @instrument = @user.instruments.all
   end
 
   def edit
@@ -16,7 +17,7 @@ class Public::UsersController < ApplicationController
       render "edit"
     end
   end
-  
+
 
   private
    def user_params

@@ -24,3 +24,10 @@
           <button type="button" class="btn btn-outline-secondary btn-block link-secondary"><i class="fas fa-user-cog"></i>
        <% end %>
   </div>
+
+  <% @instrument.each do |instrument| %>
+    <%= link_to user_instrument_path(:user_id,:id) do %>
+      <%= image_tag instrument.get_instrument_image(100,100) %>
+      <%= instrument.name %>
+    <% end %>
+  <% end %>
