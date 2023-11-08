@@ -26,7 +26,7 @@
   </div>
 
   <% @instrument.each do |instrument| %>
-    <%= link_to user_instrument_path(:user_id,:id) do %>
+    <%= link_to user_instrument_path(user_id: instrument.user_id, id: instrument.id) do %>
       <%= image_tag instrument.get_instrument_image(100,100) %>
       <%= instrument.name %>
     <% end %>

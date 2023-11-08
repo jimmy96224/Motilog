@@ -1,2 +1,9 @@
-  <%= image_tag @instrument.get_instrument_image(100,100) %>
+<% if @instrument.present? %>
+  <%= image_tag @instrument.get_instrument_image(100, 100) %>
   <%= @instrument.name %>
+<% else %>
+  <p>該当する楽器は見つかりませんでした。</p>
+<% end %>
+
+  <!--%= image_tag @instrument.get_instrument_image(100,100) %>-->
+  <!--%= @instrument.name %>-->
