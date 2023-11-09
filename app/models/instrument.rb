@@ -2,6 +2,7 @@ class Instrument < ApplicationRecord
 
   has_one_attached :instrument_image
   belongs_to :user
+  has_many :mainteance_logs
 
   validates :name, presence: true,  length: { in: 2..20 }
   validates :profile, length: { maximum: 100 }

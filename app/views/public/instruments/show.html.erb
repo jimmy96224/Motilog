@@ -1,9 +1,19 @@
-<% if @instrument.present? %>
   <%= image_tag @instrument.get_instrument_image(100, 100) %>
   <%= @instrument.name %>
-<% else %>
-  <p>該当する楽器は見つかりませんでした。</p>
+  <%= @instrument.profile %>
+
+<%= link_to edit_user_instrument_path(user_id: @instrument.user_id, id: @instrument.id) do %>
+ 編集する
 <% end %>
 
-  <!--%= image_tag @instrument.get_instrument_image(100,100) %>-->
-  <!--%= @instrument.name %>-->
+<%= link_to new_maintenance_log_path do %>
+ ログを投稿
+<% end %>
+
+<% if @maintenance_log.present? %>
+  <% @maintenance_log.each do |log| %>
+      <%= log.date %>
+      <%= log.log %>
+  <% end %>
+  <% else %>
+<% end %>

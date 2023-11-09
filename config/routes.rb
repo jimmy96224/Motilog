@@ -8,22 +8,24 @@ devise_for :users, skip: :all
    get 'signup' => 'public/registrations#new'
    post 'signup' => 'public/registrations#create'
  end
-# 以下URI変更のためコメントアウト
-  # devise_for :users,skip: [:passwords], controllers: {
-  #   registrations: "public/registrations",
-  #   sessions: "public/sessions"
-  # }
 
   devise_for :admins,skip: [:registrations,:passwords], controllers: {
     sessions: "admin/sessions"
   }
 
   scope module: :public do
-    resources :users, only: [:show, :edit, :update] do
+
+        resources :users, only: [:show, :edit, :update] do
       get '/cancel' => "users#cancel"
       patch '/close' => "users#close"
 
-    resources :instruments, except: [:index]
+      resources :instruments, except: [:index] do
+
+        resources :maintenance_logs, except: [:show, :index]
+
+      end
+
+
 
     end
   end

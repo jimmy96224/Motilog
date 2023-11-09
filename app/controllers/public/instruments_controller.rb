@@ -4,8 +4,7 @@ class Public::InstrumentsController < ApplicationController
   end
 
   def create
-      @user = User.find(params[:user_id])
-      @instrument = Instrument.new(instrument_params.merge(user: @user))
+      @instrument = Instrument.new(instrument_params)
     if @instrument.save
       flash[:notice] = "投稿に成功しました。"
       redirect_to user_path(current_user)
@@ -17,17 +16,20 @@ class Public::InstrumentsController < ApplicationController
 
   def show
     @instrument = Instrument.find_by(id: params[:id], user_id: params[:user_id])
-    # @instrument = Instrument.find_by(id: params[:id].to_i, user_id: params[:user_id].to_i)
-  # user_id = params[:user_id].to_i
-  # id = params[:id].to_i
 
-  # @instrument = Instrument.find(id)
   end
 
   def edit
+    @instrument = Instrument.find_by(id: params[:id], user_id: params[:user_id])
   end
 
   def update
+    @instrument = Instrument.find_by(id: params[:id], user_id: params[:user_id])
+    if @instrument.update(instrument_params)
+      redirect_to user_instrument_path(user_id: @instrument.user_id, id: @instrument.id), notice: "You have updated user successfully."
+    else
+      render "edit"
+    end
   end
 
   def destroy
@@ -35,7 +37,7 @@ class Public::InstrumentsController < ApplicationController
 
   private
     def instrument_params
-      params.require(:instrument).permit(:name, :profile, :instrument_image, :user_id)
+      params.require(:instrument).permit(:name, :profile, :instrument_image).merge(user_id: params[:user_id])
     end
 
 end
