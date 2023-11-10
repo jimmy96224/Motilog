@@ -6,14 +6,17 @@
  編集する
 <% end %>
 
-<%= link_to new_maintenance_log_path do %>
+<%= link_to new_user_instrument_log_path(user_id: @instrument.user_id, instrument_id: @instrument.id) do %>
  ログを投稿
 <% end %>
 
-<% if @maintenance_log.present? %>
-  <% @maintenance_log.each do |log| %>
-      <%= log.date %>
-      <%= log.log %>
+<% if @logs.present? %>
+  <% @logs.each do |log| %>
+      <%= link_to edit_user_instrument_log_path(user_id: log.instrument.user_id, instrument_id: log.instrument.id, id: log.id) do %>
+          <%= log.date %>
+          <%= log.log %>
+     <% end %>
   <% end %>
   <% else %>
+  ログはありません
 <% end %>

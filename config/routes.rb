@@ -15,14 +15,13 @@ devise_for :users, skip: :all
 
   scope module: :public do
 
-        resources :users, only: [:show, :edit, :update] do
+    resources :users, only: [:show, :edit, :update] do
       get '/cancel' => "users#cancel"
       patch '/close' => "users#close"
+      get  '/logs' => "logs#index"
 
       resources :instruments, except: [:index] do
-
-        resources :maintenance_logs, except: [:show, :index]
-
+        resources :logs, except: [:show, :index]
       end
 
 

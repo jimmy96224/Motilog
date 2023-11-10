@@ -1,8 +1,8 @@
 <div class='container'>
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-    <%= form_with model: @maintenance_log, url: maintenance_logs_path, method: :post, local: true do |f| %>
-      <%= render 'layouts/errors', obj: @maintenance_log %>
+    <%= form_with model: @log, url: user_instrument_logs_path, method: :post, local: true do |f| %>
+      <%= render 'layouts/errors', obj: @log %>
 
       <div class="form-group">
         <%= f.label :date %>

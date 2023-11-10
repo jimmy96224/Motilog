@@ -61,6 +61,10 @@ ActiveRecord::Schema.define(version: 2023_11_09_170307) do
   end
 
   create_table "logs", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "instrument_id"
+    t.date "date"
+    t.text "log"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
