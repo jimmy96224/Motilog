@@ -3,6 +3,7 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @instrument = @user.instruments.all
+    @diaries = Diary
   end
 
   def edit

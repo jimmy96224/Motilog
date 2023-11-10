@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'diaries/new'
+    get 'diaries/show'
+  end
 devise_for :users, skip: :all
  devise_scope :user do
    get '/' => 'public/sessions#new', as: "root"
@@ -23,6 +27,8 @@ devise_for :users, skip: :all
       resources :instruments, except: [:index] do
         resources :logs, except: [:show, :index]
       end
+
+      resources :diaries, except: [:index]
 
 
 

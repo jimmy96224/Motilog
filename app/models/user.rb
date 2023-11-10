@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   has_one_attached :profile_image
   has_many :instruments, dependent: :destroy
+  has_many :diaries, dependent: :destroy
 
   validates :name, presence: true,  length: { in: 2..20 }
   validates :profile, length: { maximum: 100 }
