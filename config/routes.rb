@@ -23,6 +23,7 @@ devise_for :users, skip: :all
       get '/cancel' => "users#cancel"
       patch '/close' => "users#close"
       get  '/logs' => "logs#index"
+      get  '/search_tag' => "diaries#search_tag"
 
       resources :instruments, except: [:index] do
         resources :logs, except: [:show, :index]

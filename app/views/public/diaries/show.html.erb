@@ -1,2 +1,9 @@
-<% @diary_tags.each do |tag| %>
-  <%=tag.name%><%="(#{tag.diaries.count})" %><% end %>
+<!--% @@diary_tags.each do |tag| %>-->
+<!--  %=tag.name%%="(#{tag.diaries.count})" %% end %>-->
+<%= @diary.tags.map(&:name).join(', ') %>
+<% if @diary.@diary_image.present? %>
+<%= image_tag @diary.get_@diary_image(100,100) %>
+<% end %>
+<%= @diary.date %>
+<%= @diary.title %>
+<%= @diary.text %>

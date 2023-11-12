@@ -43,7 +43,7 @@
 
 <% if @tag_list.present? %>
   <% @tag_list.each do |list|%>
-    <%=list.name %>
+    <%=link_to list.name,search_tag_path(tag_id: list.id) %>
     <%="(#{list.diaries.count})" %>
   <% end %>
 <% else %>
@@ -52,13 +52,15 @@
 
 <% if @diaries.present? %>
   <% @diaries.each do |diary| %>
-    <!--%= link_to user_instrument_path(user_id: instrument.user_id, id: instrument.id) do %>-->
-      <!--%= image_tag instrument.get_instrument_image(100,100) %>-->
+    <%= link_to user_diary_path(user_id: diary.user_id, id: diary_id) do %>
       <%= diary.tags.map(&:name).join(', ') %>
+      <% if diary.diary_image.present? %>
+        <%= image_tag diary.get_diary_image(100,100) %>
+      <% end %>
       <%= diary.date %>
       <%= diary.title %>
       <%= diary.text %>
-    <!--% end %>-->
+    <% end %>
   <% end %>
   <% else %>
   <p>表示するデータがありません。</p>

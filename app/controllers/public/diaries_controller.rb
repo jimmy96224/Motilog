@@ -32,7 +32,7 @@ class Public::DiariesController < ApplicationController
 
   def update
     @diary = Diary.find(params[:id])
-    tag_list=params[:diary][:name].split(',')
+    tag_list = params[:diary][:name].split(',')
     if @diary.update(diary_params)
        @diary.save_tag(tag_list)
        redirect_to user_path(current_user),notice:'投稿完了しました'
@@ -45,10 +45,19 @@ class Public::DiariesController < ApplicationController
 
   end
 
+  def search_tag
+    #検索結果画面でもタグ一覧表示
+    @tag_list = Tag.all
+　　#検索されたタグを受け取る
+    @tag = Tag.find(params[:tag_id])
+　　#検索されたタグに紐づく投稿を表示
+    @diaries = @tag.diaries
+  end
+
   private
 
   def diary_params
-    params.require(:diary).permit(:user_id, :instrument_id, :date, :title, :text, :diary_images)
+    params.require(:diary).permit(:user_id, :instrument_id, :date, :title, :text, :diary_image)
   end
 
 end

@@ -1,11 +1,15 @@
 class Diary < ApplicationRecord
 
-  has_many_attached :diary_images
+  has_one_attached :diary_image
   belongs_to :instrument
   belongs_to :user
   has_many :diary_tags,dependent: :destroy
   has_many :tags,through: :diary_tags
-  
+
+  def get_diary_image(width, height)
+    diary_image.variant(resize_to_limit: [width, height]).processed
+  end
+
   def save_tag(sent_tags)
   # タグが存在していれば、タグの名前を配列として全て取得
     current_tags = self.tags.pluck(:name) unless self.tags.nil?
