@@ -3,7 +3,8 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @instrument = @user.instruments.all
-    @diaries = Diary
+    @diaries = Diary.all
+    @tag_list=Tag.all
   end
 
   def edit

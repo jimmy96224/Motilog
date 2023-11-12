@@ -34,3 +34,32 @@
   <% else %>
   <p>表示するデータがありません。</p>
 <% end %>
+
+<div class="row">
+  <%= link_to new_user_diary_path(current_user.id) do %>
+    <button type="button" class="btn btn-outline-secondary btn-block link-secondary"><i class="fas fa-user-cog"></i>
+  <% end %>
+</div>
+
+<% if @tag_list.present? %>
+  <% @tag_list.each do |list|%>
+    <%=list.name %>
+    <%="(#{list.diaries.count})" %>
+  <% end %>
+<% else %>
+  <p>表示するデータがありません。</p>
+<% end %>
+
+<% if @diaries.present? %>
+  <% @diaries.each do |diary| %>
+    <!--%= link_to user_instrument_path(user_id: instrument.user_id, id: instrument.id) do %>-->
+      <!--%= image_tag instrument.get_instrument_image(100,100) %>-->
+      <%= diary.tags.map(&:name).join(', ') %>
+      <%= diary.date %>
+      <%= diary.title %>
+      <%= diary.text %>
+    <!--% end %>-->
+  <% end %>
+  <% else %>
+  <p>表示するデータがありません。</p>
+<% end %>

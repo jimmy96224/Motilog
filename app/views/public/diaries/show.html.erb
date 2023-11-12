@@ -1,2 +1,2 @@
-<h1>Public::Diaries#show</h1>
-<p>Find me in app/views/public/diaries/show.html.erb</p>
+<% @diary_tags.each do |tag| %>
+  <%=tag.name%><%="(#{tag.diaries.count})" %><% end %>
