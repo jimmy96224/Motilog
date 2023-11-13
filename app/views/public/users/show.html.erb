@@ -41,27 +41,80 @@
   <% end %>
 </div>
 
-<% if @tag_list.present? %>
-  <% @tag_list.each do |list|%>
-    <%=link_to list.name,search_tag_path(tag_id: list.id) %>
-    <%="(#{list.diaries.count})" %>
-  <% end %>
-<% else %>
-  <p>表示するデータがありません。</p>
-<% end %>
+<!--% if @tag_list.present? %>-->
+<!--  % @tag_list.each do |list|%>-->
+<!--    %=link_to list.name, user_search_tag_path(tag_id: list.id) %>-->
+<!--    %="(#{list.diaries.count})" %>-->
+<!--  % end %>-->
+<!--% else %>-->
+<!--  <p>表示するデータがありません。</p>-->
+<!--% end %>-->
 
-<% if @diaries.present? %>
-  <% @diaries.each do |diary| %>
-    <%= link_to user_diary_path(user_id: diary.user_id, id: diary_id) do %>
-      <%= diary.tags.map(&:name).join(', ') %>
-      <% if diary.diary_image.present? %>
-        <%= image_tag diary.get_diary_image(100,100) %>
-      <% end %>
-      <%= diary.date %>
-      <%= diary.title %>
-      <%= diary.text %>
-    <% end %>
-  <% end %>
-  <% else %>
-  <p>表示するデータがありません。</p>
-<% end %>
+<!--% @post_tags.each do |tag| %>-->
+<!--  %= link_to tag.name,search_tag_path(tag_id: tag.id)%>%="(#{tag.posts.count})" %% end %-->
+
+<!--% if @diaries.present? %>-->
+<!--  % @diaries.each do |diary| %>-->
+<!--    %= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>-->
+      <!--%= diary.tags.map(&:name).join(', ') %>-->
+<!--      % if diary.diary_image.attached? %>-->
+<!--          %= image_tag diary.get_diary_image(50, 50) %>-->
+<!--          % else %>-->
+<!--      % end %>-->
+<!--      %= diary.instrument.name %>-->
+<!--      %= diary.date %>-->
+<!--      %= diary.title %>-->
+<!--      %= diary.text %>-->
+<!--    % end %>-->
+<!--  % end %>-->
+<!--  % else %>-->
+<!--  <p>表示するデータがありません。</p>-->
+<!--% end %>-->
+
+
+
+<div class="row mt-3">
+    <div class="col-md-8 offset-md-1">
+     <h2>Diary</h2>
+      <table class="table table-hover">
+       <thead>
+           <tr>
+            <th></th>
+            <th>楽器</th>
+            <th>日付</th>
+            <th>タイトル</th>
+            <th>本文</th>
+           </tr>
+       </thead>
+        <tbody>
+        <% @diaries.each do |diary| %>
+           <tr>
+               <td>
+                  <% if diary.diary_image.attached? %>
+                      <%= image_tag diary.get_diary_image(30, 30) %>
+                      <% else %>
+                  <% end %>
+               </td>
+               <td>
+                 <%= link_to user_instrument_path(user_id: diary.user_id, id: diary.instrument.id) do %>
+                   <%= diary.instrument.name %>
+                 <% end %>
+                </td>
+               <td><%= diary.date %></td>
+               <td>
+                 <%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>
+                   <%=truncate(diary.title, length: 20)%>
+                 <% end %>
+                </td>
+               <td>
+                 <%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>
+                   <%=truncate(diary.text, length: 20)%>
+                 <% end %>
+                </td>
+           </tr>
+        <% end %>
+       </tbody>
+      </table>
+    </div>
+  </div>
+

@@ -1,7 +1,7 @@
 <div class='container'>
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
-    <%= form_with model: @diary, url: user_diaries_path, method: :post, local: true do |f| %>
+    <%= form_with model: @diary, url: user_diary_path, method: :patch, local: true do |f| %>
       <%= render 'layouts/errors', obj: @diary %>
 
       <div class="form-group">
@@ -13,13 +13,9 @@
         <%= f.select :instrument, Instrument.all.map { |i| [i.name, i.id] }, class: "form-control instrument", include_blank: '選択してください', required: true %>
       </div>
       <div class="form-group">
-        <%= f.label :diary_image %>
-        <%= f.file_field :diary_image, class: "form-control-file diary_image", accept: 'image/*' %>
+        <%= f.label :image %>
+        <%= f.file_field :diary_image, multiple: true, class: "form-control-file diary_image", accept: 'image/*' %>
       </div>
-      <!--<div class="form-group">-->
-      <!--  %= f.label :tag %>-->
-      <!--  %= f.text_field :name, value: @tag_list,class:"form-control tag", class: "form-control instrument" %>-->
-      <!--</div>-->
       <div class="form-group">
         <%= f.label :title %>
         <%= f.text_field :title, class: "form-control title" %>
@@ -32,5 +28,10 @@
         <%= f.submit class: 'btn btn-secondary' %>
       </div>
     <% end %>
+      <div class="form-group">
+        <%= link_to user_diary_path(user_id: current_user.id, id: params[:id]), method: :delete, data: {confirm: "削除しますか？"} do %>
+        日誌を削除
+        <% end %>
+      </div>
   </div>
 </div>
