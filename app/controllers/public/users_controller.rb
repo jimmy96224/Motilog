@@ -4,7 +4,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @instrument = @user.instruments.all
     @diaries = Diary.all
-    @tag_list=Tag.all
+    @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
   end
 
   def edit

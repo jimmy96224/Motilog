@@ -1,3 +1,12 @@
+<% if params[:filtered_by_tag] %>
+  <h2>Diaries Filtered by Tag: <%= params[:tag_name] %></h2>
+  <div>
+    <%= link_to diaries_path do %>
+     一覧に戻る
+    <% end %>
+  </div>
+<% end %>
+
 <div class="row mt-3">
     <div class="col-md-8 offset-md-1">
      <h2>Diary</h2>
@@ -7,6 +16,7 @@
             <th></th>
             <th>楽器</th>
             <th>日付</th>
+            <th>タグ</th>
             <th>タイトル</th>
             <th>本文</th>
            </tr>
@@ -23,11 +33,12 @@
                  <% end %>
                 </td>
                <td><%= diary.date %></td>
+               <td><%= render 'public/diaries/tag_list', tag_list: diary.tag_list %></td>
                <td>
                  <%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>
                    <%=truncate(diary.title, length: 20)%>
                  <% end %>
-                </td>
+               </td>
                <td>
                  <%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>
                    <%=truncate(diary.text, length: 20)%>

@@ -21,13 +21,15 @@ devise_for :users, skip: :all
       get '/cancel' => "users#cancel"
       patch '/close' => "users#close"
       get  '/logs' => "logs#index"
-      # get  '/search_tag' => "diaries#search_tag"
 
       resources :instruments, except: [:index] do
         resources :logs, except: [:show, :index]
       end
 
-      resources :diaries, except: [:index]
+      resources :diaries, except: [:index] do
+        resource :favorite, only: [:create, :destroy]
+        resources :post_comments, only: [:create, :destroy]
+      end
 
 
 

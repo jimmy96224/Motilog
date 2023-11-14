@@ -16,10 +16,10 @@
         <%= f.label :diary_image %>
         <%= f.file_field :diary_image, class: "form-control-file diary_image", accept: 'image/*' %>
       </div>
-      <!--<div class="form-group">-->
-      <!--  %= f.label :tag %>-->
-      <!--  %= f.text_field :name, value: @tag_list,class:"form-control tag", class: "form-control instrument" %>-->
-      <!--</div>-->
+      <div class="form-group">
+        <%= f.label :tag_list %>
+        <%= f.text_field :tag_list, value: @diary.tag_list.join(','), class:"form-control tag_list" %>
+      </div>
       <div class="form-group">
         <%= f.label :title %>
         <%= f.text_field :title, class: "form-control title" %>

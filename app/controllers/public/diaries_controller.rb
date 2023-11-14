@@ -2,6 +2,7 @@ class Public::DiariesController < ApplicationController
 
   def index
     @diaries = Diary.all
+    @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
   end
 
   def new
@@ -11,15 +12,13 @@ class Public::DiariesController < ApplicationController
   def create
       @diary = Diary.new(diary_params)
       @diary.user_id=current_user.id
-      # instrument
       if params[:diary][:instrument].present?
         @diary.instrument = Instrument.find(params[:diary][:instrument])
       end
       if params[:diary][:diary_image].present?
         @diary.diary_image.attach(params[:diary][:diary_image])
       end
-      
-      # tag_list=params[:diary][:name].split(',')
+
     if @diary.save
       # @diary.save_tag(tag_list)
       flash[:notice] = "投稿に成功しました。"
@@ -33,13 +32,12 @@ class Public::DiariesController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @diary = @user.diaries.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def edit
     @user = User.find(params[:user_id])
     @diary = @user.diaries.find(params[:id])
-    # pluckはmapと同じ意味です！！
-    # @tag_list=@diary.tags.pluck(:name).join(',')
   end
 
   def update
@@ -48,9 +46,7 @@ class Public::DiariesController < ApplicationController
     if params[:diary][:instrument].present?
       @diary.instrument = Instrument.find(params[:diary][:instrument])
     end
-    # tag_list = params[:diary][:name].split(',')
     if @diary.update(diary_params)
-      # @diary.save_tag(tag_list)
        redirect_to user_diary_path(user_id: current_user, id: params[:id]),notice:'投稿完了しました'
     else
       render:edit
@@ -58,22 +54,15 @@ class Public::DiariesController < ApplicationController
   end
 
   def destroy
-    @diary = Diary.find(params[:id])
-    @diary.destroy
+    diary = Diary.find(params[:id])
+    diary.destroy
     redirect_to user_path(current_user)
   end
-
-  # def search_tag
-  #   検索結果画面でもタグ一覧表示
-  #   @tag_list = Tag.all
-  #   @tag = Tag.find(params[:tag_id])
-  #   @diaries = @tag.diaries
-  # end
 
   private
 
   def diary_params
-    params.require(:diary).permit(:user_id, :instrument_id, :date, :title, :text, :diary_image)
+    params.require(:diary).permit(:user_id, :instrument_id, :date, :title, :text, :diary_image, :tag_list)
   end
 
 end

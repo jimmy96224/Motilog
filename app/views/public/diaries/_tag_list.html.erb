@@ -1,0 +1,5 @@
+<% tag_list.each do |tag|%>
+  <div class="btn btn-primary">
+    <%= link_to tag, diaries_path(filtered_by_tag: true, tag_name: tag), class: "text-white" %>
+  </div>
+<% end %>

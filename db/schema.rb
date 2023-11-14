@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_10_170442) do
+ActiveRecord::Schema.define(version: 2023_11_14_143125) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -62,14 +62,11 @@ ActiveRecord::Schema.define(version: 2023_11_10_170442) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "diary_tags", force: :cascade do |t|
-    t.integer "diary_id", null: false
-    t.integer "tag_id", null: false
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "diary_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["diary_id", "tag_id"], name: "index_diary_tags_on_diary_id_and_tag_id", unique: true
-    t.index ["diary_id"], name: "index_diary_tags_on_diary_id"
-    t.index ["tag_id"], name: "index_diary_tags_on_tag_id"
   end
 
   create_table "instruments", force: :cascade do |t|
@@ -89,10 +86,39 @@ ActiveRecord::Schema.define(version: 2023_11_10_170442) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name", null: false
+  create_table "post_comments", force: :cascade do |t|
+    t.text "comment"
+    t.integer "user_id"
+    t.integer "diary_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer "tag_id"
+    t.string "taggable_type"
+    t.integer "taggable_id"
+    t.string "tagger_type"
+    t.integer "tagger_id"
+    t.string "context", limit: 128
+    t.datetime "created_at"
+    t.string "tenant", limit: 128
+    t.index ["context"], name: "index_taggings_on_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
+    t.index ["tenant"], name: "index_taggings_on_tenant"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -113,6 +139,4 @@ ActiveRecord::Schema.define(version: 2023_11_10_170442) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "diary_tags", "diaries"
-  add_foreign_key "diary_tags", "tags"
 end
