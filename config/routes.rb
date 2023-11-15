@@ -15,8 +15,6 @@ devise_for :users, skip: :all
 
   scope module: :public do
 
-    get '/diaries' => 'diaries#index'
-
     resources :users, only: [:show, :edit, :update] do
       get '/cancel' => "users#cancel"
       patch '/close' => "users#close"
@@ -32,11 +30,14 @@ devise_for :users, skip: :all
         collection do
           get :search
         end
-
-
-
       end
+      
+      get '/diaries' => 'diaries#index'
+      
+      resources :groups, except: [:index]
+      get '/groups' => 'groups#index'
 
+      resources :group_users, only: [:create, :destroy]
 
 
     end

@@ -26,13 +26,13 @@
                   <% end %>
                 </li>
                 <li class="d-flex mr-4">
-                  <%= link_to diaries_path, class: "btn btn-outline-secondary" do %>
+                  <%= link_to user_diaries_path(current_user), class: "btn btn-outline-secondary" do %>
                     日誌
                   <% end %>
                 </li>
                 <li class="d-flex mr-4">
-                  <%= link_to user_path(current_user), class: "btn btn-outline-secondary" do %>
-                    コミュニティ
+                  <%= link_to user_groups_path(current_user), class: "btn btn-outline-secondary" do %>
+                    グループ
                   <% end %>
                 </li>
                 <li class="d-flex">
@@ -44,14 +44,6 @@
               <% end %>
             </div>
           </div>
-          <!--<div class="col-12">-->
-          <!--  <div class="mt-3 text-right">-->
-          <!--    %= form_with url: public_search_path, method: :get, local: true do |f| %>-->
-          <!--      %= f.text_field :query, placeholder: "Search" %>-->
-          <!--      %= f.submit "検索" %>-->
-          <!--    % end %>-->
-          <!--  </div>-->
-          <!--</div>-->
         </div>
       </div>
     </div>

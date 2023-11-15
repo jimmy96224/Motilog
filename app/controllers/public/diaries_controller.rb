@@ -2,12 +2,20 @@ class Public::DiariesController < ApplicationController
 
 
   def index
-    if params[:search]
+      if params[:search]
       @diaries = Diary.where("title LIKE ?", "%#{params[:search]}%")
-    else
+      else
       @diaries = Diary.all
-    end
-    @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
+      end
+
+      if params[:group_id].present?
+      group = Group.find(params[:group_id])
+      @diaries = @diaries.joins(:user).where(users: { id: group.user_ids })
+      elsif current_user
+      @diaries = current_user.joined_groups_diaries
+      end
+
+      @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
   end
 
   def new
@@ -63,7 +71,7 @@ class Public::DiariesController < ApplicationController
     diary.destroy
     redirect_to user_path(current_user)
   end
-  
+
   def search
     @diaries = current_user.diaries.search(params[:search])
     render :index

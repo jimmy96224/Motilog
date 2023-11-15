@@ -3,6 +3,7 @@ class CreateDiaries < ActiveRecord::Migration[6.1]
     create_table :diaries do |t|
       t.integer :user_id
       t.integer :instrument_id
+      t.references :group
       t.date :date
       t.string :title
       t.text :text

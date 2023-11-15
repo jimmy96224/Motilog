@@ -1,6 +1,7 @@
-<div class="search_form">
-  <%= form_with url: search_user_diaries_path(current_user), method: :get do |f| %>
+<div class="filter_form">
+  <%= form_with url: user_diaries_path(current_user), method: :get do |f| %>
     <%= f.text_field :search, placeholder: "Search diaries" %>
+    <%= f.collection_select :group_id, current_user.groups, :id, :name, include_blank: true %>
     <%= f.submit "Search", class: "btn btn-primary" %>
   <% end %>
 </div>

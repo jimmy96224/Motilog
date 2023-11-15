@@ -4,6 +4,7 @@ class Diary < ApplicationRecord
   acts_as_taggable_on :tags
   belongs_to :instrument
   belongs_to :user
+  belongs_to :group, optional: true
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
