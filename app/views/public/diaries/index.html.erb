@@ -1,3 +1,10 @@
+<div class="search_form">
+  <%= form_with url: search_user_diaries_path(current_user), method: :get do |f| %>
+    <%= f.text_field :search, placeholder: "Search diaries" %>
+    <%= f.submit "Search", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
 <% if params[:filtered_by_tag] %>
   <h2>Diaries Filtered by Tag: <%= params[:tag_name] %></h2>
   <div>

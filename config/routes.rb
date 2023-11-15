@@ -29,6 +29,12 @@ devise_for :users, skip: :all
       resources :diaries, except: [:index] do
         resource :favorite, only: [:create, :destroy]
         resources :post_comments, only: [:create, :destroy]
+        collection do
+          get :search
+        end
+
+
+
       end
 
 

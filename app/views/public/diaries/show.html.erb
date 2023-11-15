@@ -19,6 +19,21 @@
     <% end %>
 <% end %>
 
+<% if @diary.favorited_by?(current_user) %>
+  <p>
+    <%= link_to user_diary_favorite_path(user_id: @user, diary_id: @diary), method: :delete do %>
+      ♥<%= @diary.favorites.count %> <i class="fas fa-thumbs-up"></i>
+    <% end %>
+  </p>
+  <% else %>
+  <p>
+    <%= link_to user_diary_favorite_path(user_id: @user, diary_id: @diary), method: :post do %>
+      ♡<%= @diary.favorites.count %> <i class="fas fa-thumbs-up"></i>
+    <% end %>
+  </p>
+<% end %>
+
+
 <div>
   <p>コメント件数：<%= @diary.post_comments.count %></p>
   <% @diary.post_comments.each do |post_comment| %>

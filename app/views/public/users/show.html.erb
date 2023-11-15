@@ -92,7 +92,9 @@
                  <% if diary.post_comments.present? %>
                    <%= "#{diary.post_comments.count} コメント" %>
                  <% end %>
-                 ♡いいね(仮)
+                 <% if diary.favorites.present? %>
+                   <%= diary.favorites.count %> <i class="fas fa-thumbs-up"></i>
+                 <% end %>
                </td>
            </tr>
         <% end %>

@@ -11,6 +11,7 @@ class Diary < ApplicationRecord
   validates :title, presence: true
   validates :text, presence: true
 
+
 def get_diary_image(width, height)
   if diary_image.attached?
     diary_image.variant(resize_to_limit: [width, height]).processed
@@ -21,6 +22,10 @@ end
 
 def favorited_by?(user)
     favorites.exists?(user_id: user.id)
+end
+
+def self.search(query)
+  where("title LIKE ? OR text LIKE ?", "%#{query}%", "%#{query}%")
 end
 
 end

@@ -1,7 +1,12 @@
 class Public::DiariesController < ApplicationController
 
+
   def index
-    @diaries = Diary.all
+    if params[:search]
+      @diaries = Diary.where("title LIKE ?", "%#{params[:search]}%")
+    else
+      @diaries = Diary.all
+    end
     @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
   end
 
@@ -57,6 +62,11 @@ class Public::DiariesController < ApplicationController
     diary = Diary.find(params[:id])
     diary.destroy
     redirect_to user_path(current_user)
+  end
+  
+  def search
+    @diaries = current_user.diaries.search(params[:search])
+    render :index
   end
 
   private
