@@ -1,0 +1,87 @@
+<div>
+　<%= image_tag @user.get_profile_image(100,100) %>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>name</th>
+        <th><%= @user.name %></th>
+      </tr>
+      <tr>
+        <th>profile</th>
+        <th><%= @user.profile %></th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<% if @instrument.present? %>
+  <% @instrument.each do |instrument| %>
+      <%= image_tag instrument.get_instrument_image(100,100) %>
+      <%= instrument.name %>
+  <% end %>
+  <% else %>
+  <p>表示するデータがありません。</p>
+<% end %>
+
+<div class="row mt-3">
+    <div class="col-md-8 offset-md-1">
+     <h2>Diary</h2>
+      <table class="table table-hover">
+       <thead>
+           <tr>
+            <th></th>
+            <th>楽器</th>
+            <th>日付</th>
+            <th>タグ</th>
+            <th>タイトル</th>
+            <th>本文</th>
+            <th></th>
+           </tr>
+       </thead>
+        <tbody>
+        <% @diaries.each do |diary| %>
+           <tr>
+               <td>
+                  <% if diary.diary_image.attached? %>
+                      <%= image_tag diary.get_diary_image(30, 30) %>
+                      <% else %>
+                  <% end %>
+               </td>
+               <td>
+                  <%= diary.instrument.name %>
+               </td>
+               <td>
+                 <%= diary.date %>
+               </td>
+               <td>
+                  <% diary.tag_list.each do |tag|%>
+                  <div class="btn btn-primary">
+                  <%= link_to tag, user_path(id: @user, tag_name: tag, filtered_by_tag: true), class: "text-white" %>
+                  </div>
+                  <% end %>
+               </td>
+               <td>
+                 <%= link_to admin_diary_path(id: @user) do %>
+                   <%=truncate(diary.title, length: 20)%>
+                 <% end %>
+                </td>
+               <td>
+                 <%= link_to admin_diary_path(id: @user) do %>
+                   <%=truncate(diary.text, length: 20)%>
+                 <% end %>
+               </td>
+               <td>
+                 <% if diary.post_comments.present? %>
+                   <%= "#{diary.post_comments.count} コメント" %>
+                 <% end %>
+                 <% if diary.favorites.present? %>
+                   <%= diary.favorites.count %> <i class="fas fa-thumbs-up"></i>
+                 <% end %>
+               </td>
+           </tr>
+        <% end %>
+       </tbody>
+      </table>
+    </div>
+  </div>
+

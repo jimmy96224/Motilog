@@ -1,20 +1,20 @@
 <li class="d-flex">
-  <%= link_to _path, class: "btn btn-outline-secondary mr-4" do %>
+  <%= link_to admin_users_path, class: "btn btn-outline-secondary mr-4" do %>
     ユーザー
   <% end %>
 </li>
 <li class="d-flex">
-  <%= link_to _path, class: "btn btn-outline-secondary mr-4" do %>
+  <%= link_to admin_diaries_path, class: "btn btn-outline-secondary mr-4" do %>
     日誌
   <% end %>
 </li>
 <li class="d-flex">
-  <%= link_to _path, class: "btn btn-outline-secondary mr-4" do %>
+  <%= link_to admin_post_commnts_path, class: "btn btn-outline-secondary mr-4" do %>
     コメント
   <% end %>
 </li>
 <li class="d-flex">
-  <%= link_to destroy_admin_session, method: :delete, class: "btn btn-outline-secondary" do %>
+  <%= link_to destroy_admin_session_path, method: :delete, class: "btn btn-outline-secondary" do %>
     ログアウト
   <% end %>
 </li>

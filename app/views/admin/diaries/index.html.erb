@@ -5,14 +5,14 @@
 <!--  % end %>-->
 <!--</div>-->
 
-% if params[:filtered_by_tag] %>
-  <h2>Diaries Filtered by Tag: %= params[:tag_name] %></h2>
+<% if params[:filtered_by_tag] %>
+  <h2>Diaries Filtered by Tag: <%= params[:tag_name] %></h2>
   <div>
-    %= link_to user_diaries_path(user_id: current_user.id) do %>
+    <%= link_to admin_diaries_path do %>
      一覧に戻る
-    % end %>
+    <% end %>
   </div>
-% end %>
+<% end %>
 
 <div class="row mt-3">
     <div class="col-md-8 offset-md-1">
@@ -32,25 +32,25 @@
         <% @diaries.each do |diary| %>
            <tr>
                <td>
-                 <%= image_tag diary.user.get_profile_image(100,100) %><br>
-                 <%= diary.user.name %>
+                 <%= link_to admin_user_path(id: diary.user.id) do %>
+                   <%= image_tag diary.user.get_profile_image(100,100) %><br>
+                   <%= diary.user.name %>
+                 <% end %>
                </td>
                <td>
-                 <!--<%= link_to user_instrument_path(user_id: diary.user_id, id: diary.instrument.id) do %>-->
                    <%= diary.instrument.name %>
-                 <!--<% end %>-->
                 </td>
                <td><%= diary.date %></td>
-               <td><%= render 'public/diaries/tag_list', tag_list: diary.tag_list %></td>
+               <td><%= render 'admin/diaries/tag_list', tag_list: diary.tag_list %></td>
                <td>
-                 <!--<%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>-->
+                 <%= link_to admin_diary_path(id: diary.user.id) do %>
                    <%=truncate(diary.title, length: 20)%>
-                 <!--<% end %>-->
+                 <% end %>
                </td>
                <td>
-                 <!--<%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>-->
+                 <%= link_to admin_diary_path(id: diary.user.id) do %>
                    <%=truncate(diary.text, length: 20)%>
-                 <!--<% end %>-->
+                 <% end %>
                 </td>
            </tr>
         <% end %>
