@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @instrument = @user.instruments.all
-    @diaries = Diary.all
+    @diaries = @user.diaries.all
     @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
   end
 
@@ -17,6 +17,21 @@ class Public::UsersController < ApplicationController
       redirect_to user_path(current_user), notice: "You have updated user successfully."
     else
       render "edit"
+    end
+  end
+  
+  def cancel
+    @user = current_user
+  end
+
+  def close
+    if @user.update(is_active: false)
+      flash[:success] = "退会処理が完了しました。"
+      reset_session
+      redirect_to root_path
+    else
+      flash.now[:danger] = "退会処理に失敗しました。"
+      render :show
     end
   end
 

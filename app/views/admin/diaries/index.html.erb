@@ -1,0 +1,60 @@
+<!--<div class="search_form">-->
+<!--  %= form_with url: search_user_diaries_path(current_user), method: :get do |f| %>-->
+<!--    %= f.text_field :search, placeholder: "Search diaries" %>-->
+<!--    %= f.submit "Search", class: "btn btn-primary" %>-->
+<!--  % end %>-->
+<!--</div>-->
+
+% if params[:filtered_by_tag] %>
+  <h2>Diaries Filtered by Tag: %= params[:tag_name] %></h2>
+  <div>
+    %= link_to user_diaries_path(user_id: current_user.id) do %>
+     一覧に戻る
+    % end %>
+  </div>
+% end %>
+
+<div class="row mt-3">
+    <div class="col-md-8 offset-md-1">
+     <h2>Diary</h2>
+      <table class="table table-hover">
+       <thead>
+           <tr>
+            <th>ユーザー</th>
+            <th>楽器</th>
+            <th>日付</th>
+            <th>タグ</th>
+            <th>タイトル</th>
+            <th>本文</th>
+           </tr>
+       </thead>
+        <tbody>
+        <% @diaries.each do |diary| %>
+           <tr>
+               <td>
+                 <%= image_tag diary.user.get_profile_image(100,100) %><br>
+                 <%= diary.user.name %>
+               </td>
+               <td>
+                 <!--<%= link_to user_instrument_path(user_id: diary.user_id, id: diary.instrument.id) do %>-->
+                   <%= diary.instrument.name %>
+                 <!--<% end %>-->
+                </td>
+               <td><%= diary.date %></td>
+               <td><%= render 'public/diaries/tag_list', tag_list: diary.tag_list %></td>
+               <td>
+                 <!--<%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>-->
+                   <%=truncate(diary.title, length: 20)%>
+                 <!--<% end %>-->
+               </td>
+               <td>
+                 <!--<%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>-->
+                   <%=truncate(diary.text, length: 20)%>
+                 <!--<% end %>-->
+                </td>
+           </tr>
+        <% end %>
+       </tbody>
+      </table>
+    </div>
+  </div>

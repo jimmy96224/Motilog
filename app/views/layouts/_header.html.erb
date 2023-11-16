@@ -4,7 +4,7 @@
     <div class="container">
 
       <div class="col-5" style="right:100px;">
-      <a class="navbar-brand" href="/" %><%= image_tag 'default_image.jpg', size: "280x70" %></a>
+      <a class="navbar-brand" href="/" %><%= image_tag 'diary.jpg', size: "70x70" %></a>
       </div>
       <div class="col-4" style="right:100px;">
 
@@ -31,10 +31,6 @@
                   <% end %>
                 </li>
                 <li class="d-flex mr-4">
-                  <%= link_to user_groups_path(current_user), class: "btn btn-outline-secondary" do %>
-                    グループ
-                  <% end %>
-                </li>
                 <li class="d-flex">
                   <%= link_to logout_path, method: :delete, class: "btn btn-outline-secondary" do %>
                     ログアウト

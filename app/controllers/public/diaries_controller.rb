@@ -2,19 +2,17 @@ class Public::DiariesController < ApplicationController
 
 
   def index
-      if params[:search]
+    if params[:search]
       @diaries = Diary.where("title LIKE ?", "%#{params[:search]}%")
-      else
+    else
       @diaries = Diary.all
-      end
-
-      if params[:group_id].present?
+    end
+    
+    if params[:group_id]
       group = Group.find(params[:group_id])
-      @diaries = @diaries.joins(:user).where(users: { id: group.user_ids })
-      elsif current_user
-      @diaries = current_user.joined_groups_diaries
-      end
-
+      @diaries = @diaries.where(group_id: group.id)
+    end
+    
       @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
   end
 
@@ -33,7 +31,6 @@ class Public::DiariesController < ApplicationController
       end
 
     if @diary.save
-      # @diary.save_tag(tag_list)
       flash[:notice] = "投稿に成功しました。"
       redirect_to user_path(current_user)
     else
