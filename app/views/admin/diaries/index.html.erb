@@ -1,9 +1,13 @@
-<!--<div class="search_form">-->
-<!--  %= form_with url: search_user_diaries_path(current_user), method: :get do |f| %>-->
-<!--    %= f.text_field :search, placeholder: "Search diaries" %>-->
-<!--    %= f.submit "Search", class: "btn btn-primary" %>-->
-<!--  % end %>-->
-<!--</div>-->
+
+<div class="search_form">
+ <%= form_with(url: admin_diaries_path, method: :get, local: true) do |form| %>
+   <div class="form-group">
+     <%= form.label :search, "Search Diaries" %>
+     <%= form.text_field :search, class: "form-control", placeholder: "Enter keywords to search" %>
+   </div>
+   <%= form.submit "Search", class: "btn btn-primary" %>
+ <% end %>
+</div>
 
 <% if params[:filtered_by_tag] %>
   <h2>Diaries Filtered by Tag: <%= params[:tag_name] %></h2>
@@ -43,12 +47,12 @@
                <td><%= diary.date %></td>
                <td><%= render 'admin/diaries/tag_list', tag_list: diary.tag_list %></td>
                <td>
-                 <%= link_to admin_diary_path(id: diary.user.id) do %>
+                 <%= link_to admin_user_diary_path(user_id: diary.user.id, id: diary.id) do %>
                    <%=truncate(diary.title, length: 20)%>
                  <% end %>
                </td>
                <td>
-                 <%= link_to admin_diary_path(id: diary.user.id) do %>
+                 <%= link_to admin_user_diary_path(user_id: diary.user.id, id: diary.id) do %>
                    <%=truncate(diary.text, length: 20)%>
                  <% end %>
                 </td>

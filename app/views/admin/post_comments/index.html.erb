@@ -1,0 +1,43 @@
+<div class="row mt-3">
+    <div class="col-md-8 offset-md-1">
+     <h2>Post_comment</h2>
+
+         <%= form_with url: admin_post_comments_path, method: :get, class: 'mb-3' do %>
+      <div class="input-group">
+        <%= text_field_tag :search_query, params[:search_query], class: 'form-control', placeholder: 'Search comments...' %>
+        <div class="input-group-append">
+          <%= submit_tag 'Search', class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+
+      <table class="table table-hover">
+       <thead>
+           <tr>
+            <th>ユーザー</th>
+            <th>コメント</th>
+            <th></th>
+           </tr>
+       </thead>
+        <tbody>
+        <% @post_comments.each do |post_comment| %>
+           <tr>
+               <td>
+                 <%= link_to admin_user_path(id: post_comment.user.id) do %>
+                   <%= image_tag post_comment.user.get_profile_image(100,100) %><br>
+                   <%= post_comment.user.name %>
+                 <% end %>
+               </td>
+               <td>
+                  <%= link_to admin_user_diary_path(user_id: diary.user.id, id: diary.id) do %>
+                   <%= post_comment.text %>
+                  <% end %>
+                </td>
+                <td>
+                </td>
+           </tr>
+        <% end %>
+       </tbody>
+      </table>
+    </div>
+  </div>

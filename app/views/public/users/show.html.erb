@@ -1,6 +1,13 @@
-<h3><%= @user.goal %></h3>
-<%= flash[:notice] %>
-<div>
+<div class="container">
+
+<div class="row justify-content-center">
+    <h3><%= @user.goal %></h3>
+    <%= flash[:notice] %>
+</div>
+
+<div class="row">
+  <div class="col-lg-4">
+
 　<%= image_tag @user.get_profile_image(100,100) %>
   <table class="table">
     <tbody>
@@ -14,36 +21,52 @@
       </tr>
     </tbody>
   </table>
-</div>
 
-  <div class="row">
-       <%= link_to edit_user_path(current_user) do %>
-          <button type="button" class="btn btn-outline-secondary btn-block link-secondary"><i class="fas fa-user-cog"></i>
-       <% end %>
-       <%= link_to new_user_instrument_path(current_user.id) do %>
-          <button type="button" class="btn btn-outline-secondary btn-block link-secondary"><i class="fas fa-user-cog"></i>
-       <% end %>
+<% if @user == @current_user %>
+  <div>
+     <%= link_to edit_user_path(@user) do %>
+        <button type="button" class="btn btn-outline-secondary btn-block link-secondary"><i class="fas fa-user"></i>
+     <% end %>
   </div>
+<% end %>
+
 <% if @instrument.present? %>
-  <% @instrument.each do |instrument| %>
-    <%= link_to user_instrument_path(user_id: instrument.user_id, id: instrument.id) do %>
-      <%= image_tag instrument.get_instrument_image(100,100) %>
-      <%= instrument.name %>
+  <ul style="list-style-type: none;">
+    <% @instrument.each do |instrument| %>
+      <li>
+        <%= link_to user_instrument_path(user_id: instrument.user_id, id: instrument.id) do %>
+          <%= image_tag instrument.get_instrument_image(100,100) %>
+          <%= instrument.name %>
+        <% end %>
+      </li>
     <% end %>
-  <% end %>
-  <% else %>
+  </ul>
+<% else %>
   <p>表示するデータがありません。</p>
 <% end %>
 
-<div class="row">
-  <%= link_to new_user_diary_path(current_user.id) do %>
-    <button type="button" class="btn btn-outline-secondary btn-block link-secondary"><i class="fas fa-user-cog"></i>
+
+<% if @user == @current_user %>
+  <div>
+     <%= link_to new_user_instrument_path(current_user.id) do %>
+        <button type="button" class="btn btn-outline-secondary btn-block link-secondary"><i class="fas fa-guitar"></i>
+     <% end %>
+  </div>
+<% end %>
+</div>
+
+<div class="col-lg-8">
+<% if @user == @current_user %>
+<div>
+  <%= link_to new_user_diary_path(@user) do %>
+    <button type="button" class="btn btn-outline-secondary btn-block link-secondary"><i class="fas fa-book-open"></i>
   <% end %>
 </div>
+<% end %>
 
 <div class="row mt-3">
     <div class="col-md-8 offset-md-1">
-     <h2>Diary</h2>
+     <h2>練習日誌</h2>
       <table class="table table-hover">
        <thead>
            <tr>
@@ -102,4 +125,6 @@
       </table>
     </div>
   </div>
-
+</div>
+</div>
+</div>

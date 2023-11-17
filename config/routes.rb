@@ -20,7 +20,7 @@ devise_for :users, skip: :all
       resources :instruments, except: [:index] do
         resources :logs, except: [:show, :index]
       end
-      
+
       resources :diaries, except: [:index] do
         resource :favorite, only: [:create, :destroy]
         resources :post_comments, only: [:create, :destroy]
@@ -32,16 +32,18 @@ devise_for :users, skip: :all
 
     end
   end
-  
+
 # admin側のルーティング
 devise_for :admins,skip: [:registrations,:passwords], controllers: {
     sessions: "admin/sessions"
   }
   namespace :admin do
-    resources :users, only: [:index, :show, :destroy]
-    resources :diaries, only: [:index, :show, :destroy]
-    resources :post_commnts, only: [:index, :edit, :update]
+    resources :users, only: [:index, :show, :update] do
+     resources :diaries, only: [:show]
+    end
+    resources :diaries, only: [:index]
+    resources :post_comments, only: [:index, :edit, :update]
     # get 'search', to: 'searches#search'
   end
-  
+
 end

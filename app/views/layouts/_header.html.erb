@@ -1,14 +1,14 @@
 <header class="border-bottom border-dark">
 
-  <div class="navbar navbar-expand-lg navbar-light">
+  <div class="navbar navbar-expand-xl bg-dark"><!--navbar-light-->
     <div class="container">
+      <div class="col-5"> <!--style="right:100px;"-->
 
-      <div class="col-5" style="right:100px;">
       <a class="navbar-brand" href="/" %><%= image_tag 'diary.jpg', size: "70x70" %></a>
       </div>
-      <div class="col-4" style="right:100px;">
+      <div class="col-7"> <!--style="right:100px;"-->
 
-      <div class="col-4 mt-1">
+      <!--<div class="col-3 mt-1">-->
         <div class="row">
           <div class="col-12">
             <div class="d-flex justify-content-end">
@@ -16,23 +16,22 @@
                 <%= render 'layouts/admin_header' %>
               <% elsif user_signed_in? %>
                 <li class="d-flex mr-4">
-                  <%= link_to user_path(current_user), class: "btn btn-outline-secondary" do %>
+                  <%= link_to user_path(current_user), class: "btn btn-outline-light" do %>
                     マイページ
                   <% end %>
                 </li>
                 <li class="d-flex mr-4">
-                  <%= link_to user_logs_path(current_user), class: "btn btn-outline-secondary" do %>
+                  <%= link_to user_logs_path(current_user), class: "btn btn-outline-light" do %>
                     管理ログ
                   <% end %>
                 </li>
                 <li class="d-flex mr-4">
-                  <%= link_to user_diaries_path(current_user), class: "btn btn-outline-secondary" do %>
+                  <%= link_to user_diaries_path(current_user), class: "btn btn-outline-light" do %>
                     日誌
                   <% end %>
                 </li>
                 <li class="d-flex mr-4">
-                <li class="d-flex">
-                  <%= link_to logout_path, method: :delete, class: "btn btn-outline-secondary" do %>
+                  <%= link_to logout_path, method: :delete, class: "btn btn-outline-light" do %>
                     ログアウト
                   <% end %>
                 </li>
@@ -40,8 +39,9 @@
               <% end %>
             </div>
           </div>
-        </div>
+        <!--</div>-->
       </div>
     </div>
+  </div>
   </div>
 </header>
