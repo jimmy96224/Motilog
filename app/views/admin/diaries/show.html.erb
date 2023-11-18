@@ -1,0 +1,37 @@
+<div>
+    <% if @diary.diary_image.attached? %>
+        <%= image_tag @diary.get_diary_image(100, 100) %>
+    <% end %>
+</div>
+<div>
+    <%= @diary.date %>
+</div>
+<div>
+    <%= @diary.title %>
+</div>
+<div>
+    <%= @diary.text %>
+</div>
+
+<% if user_signed_in? %>
+    <%= link_to edit_user_diary_path(user_id: current_user, id: @diary) do %>
+    編集する
+    <% end %>
+<% end %>
+
+
+<p><%= @diary.favorites.count %> <i class="fas fa-thumbs-up"></i></p>
+
+
+<div>
+  <p>コメント件数：<%= @diary.post_comments.count %></p>
+  <% @diary.post_comments.each do |post_comment| %>
+    <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
+    <%= post_comment.user.name %>
+    <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+    <%= post_comment.comment %>
+    <% if current_user.admin? %>
+      <%= link_to 'コメントを削除', admin_post_comment_path(id: post_comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,22 @@
+  <%= image_tag @instrument.get_instrument_image(100, 100) %>
+  <%= @instrument.name %>
+  <%= @instrument.profile %>
+
+<%= link_to edit_user_instrument_path(user_id: @instrument.user_id, id: @instrument.id) do %>
+ 編集する
+<% end %>
+
+<%= link_to new_user_instrument_log_path(user_id: @instrument.user_id, instrument_id: @instrument.id) do %>
+ ログを投稿
+<% end %>
+
+<% if @logs.present? %>
+  <% @logs.each do |log| %>
+      <%= link_to edit_user_instrument_log_path(user_id: log.instrument.user_id, instrument_id: log.instrument.id, id: log.id) do %>
+          <%= log.date %>
+          <%= log.log %>
+     <% end %>
+  <% end %>
+  <% else %>
+  ログはありません
+<% end %>
