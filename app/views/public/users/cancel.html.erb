@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row m-5 d-flex justify-content-center">
+    <div class="col-9 m-5">
+      <div class="font-weight-bold text-center m-5 h4">
+        本当に退会しますか？
+      </div>
+
+      <div class="text-center h5">
+        退会する場合は、「退会する」をクリックしてください。
+      </div>
+
+      <div class="form-row d-flex justify-content-center mt-4">
+        <%= button_to '退会しない', user_path(@user), method: :get, class: "btn btn-primary mr-4 col-11" %>
+        <%= button_to '退会する', user_close_path(@user), method: :patch, class: "btn btn-danger ml-4 col-12" %>
+      </div>
+    </div>
+  </div>
+</div>

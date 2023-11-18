@@ -1,0 +1,64 @@
+
+<div class="search_form">
+ <%= form_with(url: admin_diaries_path, method: :get, local: true) do |form| %>
+   <div class="form-group">
+     <%= form.label :search, "Search Diaries" %>
+     <%= form.text_field :search, class: "form-control", placeholder: "Enter keywords to search" %>
+   </div>
+   <%= form.submit "Search", class: "btn btn-primary" %>
+ <% end %>
+</div>
+
+<% if params[:filtered_by_tag] %>
+  <h2>Diaries Filtered by Tag: <%= params[:tag_name] %></h2>
+  <div>
+    <%= link_to admin_diaries_path do %>
+     一覧に戻る
+    <% end %>
+  </div>
+<% end %>
+
+<div class="row mt-3">
+    <div class="col-md-8 offset-md-1">
+     <h2>Diary</h2>
+      <table class="table table-hover">
+       <thead>
+           <tr>
+            <th>ユーザー</th>
+            <th>楽器</th>
+            <th>日付</th>
+            <th>タグ</th>
+            <th>タイトル</th>
+            <th>本文</th>
+           </tr>
+       </thead>
+        <tbody>
+        <% @diaries.each do |diary| %>
+           <tr>
+               <td>
+                 <%= link_to admin_user_path(id: diary.user.id) do %>
+                   <%= image_tag diary.user.get_profile_image(100,100) %><br>
+                   <%= diary.user.name %>
+                 <% end %>
+               </td>
+               <td>
+                   <%= diary.instrument.name %>
+                </td>
+               <td><%= diary.date %></td>
+               <td><%= render 'admin/diaries/tag_list', tag_list: diary.tag_list %></td>
+               <td>
+                 <%= link_to admin_user_diary_path(user_id: diary.user.id, id: diary.id) do %>
+                   <%=truncate(diary.title, length: 20)%>
+                 <% end %>
+               </td>
+               <td>
+                 <%= link_to admin_user_diary_path(user_id: diary.user.id, id: diary.id) do %>
+                   <%=truncate(diary.text, length: 20)%>
+                 <% end %>
+                </td>
+           </tr>
+        <% end %>
+       </tbody>
+      </table>
+    </div>
+  </div>
