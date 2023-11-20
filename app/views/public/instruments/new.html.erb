@@ -1,24 +1,28 @@
-<div class='container'>
-  <div class='row'>
-    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+<div class='row mt-5 ml-5'>
+  <div class="col-3 font-weight-bold bg-secondary text-light text-center">
+    <h3 class="mt-2 mb-2" style="text-decoration:underline;">楽器を追加</h3>
+  </div>
+</div>
+
+  <div class='row mt-5'>
+    <div class="mx-auto">
     <%= form_with model: @instrument, url: user_instruments_path, local: true do |f| %>
       <%= render 'layouts/errors', obj: @instrument %>
 
       <div class="form-group">
-        <%= f.label :image %>
+        <%= f.label :楽器の写真 %>
         <%= f.file_field :instrument_image, class: "form-control-file user_image", accept: 'image/*' %>
       </div>
       <div class="form-group">
-        <%= f.label :name %>
+        <%= f.label :楽器の名前 %>
         <%= f.text_field :name, class: "form-control name" %>
       </div>
       <div class="form-group">
-        <%= f.label :profile %>
+        <%= f.label :楽器のプロフィール %>
         <%= f.text_area :profile, class: "form-control introduction" %>
       </div>
       <div class="form-group">
-        <%= f.submit class: 'btn btn-secondary' %>
+        <%= f.submit :登録,class: 'btn btn-secondary' %>
       </div>
     <% end %>
   </div>
-</div>

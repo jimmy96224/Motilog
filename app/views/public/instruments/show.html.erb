@@ -1,14 +1,53 @@
-  <%= image_tag @instrument.get_instrument_image(100, 100) %>
-  <%= @instrument.name %>
-  <%= @instrument.profile %>
+<div class="row">
 
-<%= link_to edit_user_instrument_path(user_id: @instrument.user_id, id: @instrument.id) do %>
- 編集する
-<% end %>
+  <div class="col-lg-4">
+  <div class="col-lg-12">
+　<%= image_tag @instrument.get_instrument_image(100, 100) %>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>name</th>
+        <th><%= @instrument.name %></th>
+      </tr>
+      <tr>
+        <th>profile</th>
+        <th><%= @instrument.profile %></th>
+      </tr>
+    </tbody>
+  </table>
 
-<%= link_to new_user_instrument_log_path(user_id: @instrument.user_id, instrument_id: @instrument.id) do %>
- ログを投稿
-<% end %>
+<%= button_to '編集する', edit_user_instrument_path(user_id: @instrument.user_id, id: @instrument.id), method: :get, class: "btn btn-info" %>
+<%= button_to 'ログを投稿', new_user_instrument_log_path(user_id: @instrument.user_id, instrument_id: @instrument.id), method: :get, class: "btn btn-info" %>
+
+
+  <div>
+    <%= form_with model: @log, url: user_instrument_logs_path(user_id: @instrument.user_id, instrument_id: @instrument.id), method: :post, local: true do |f| %>
+      <%= render 'layouts/errors', obj: @log %>
+
+      <div class="form-group">
+        <%= f.label :date %>
+        <%= f.date_field :date, class: "form-control-file user_image", accept: 'image/*' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :log %>
+        <%= f.text_field :log, class: "form-control name" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit class: 'btn btn-secondary' %>
+      </div>
+    <% end %>
+  </div>
+<!--%= link_to edit_user_instrument_path(user_id: @instrument.user_id, id: @instrument.id) do %>-->
+<!-- 編集する-->
+<!--% end %>-->
+
+<!--%= link_to new_user_instrument_log_path(user_id: @instrument.user_id, instrument_id: @instrument.id) do %>-->
+<!-- ログを投稿-->
+<!--% end %>-->
+
+  </div>
+  </div>
+
 
 <% if @logs.present? %>
   <% @logs.each do |log| %>
@@ -20,3 +59,5 @@
   <% else %>
   ログはありません
 <% end %>
+
+</div>

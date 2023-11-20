@@ -17,7 +17,7 @@ class Public::InstrumentsController < ApplicationController
   def show
     @user = current_user
     @instrument = Instrument.find(params[:id])
-
+    @log = Log.new
     @logs = @instrument.logs.all
   end
 

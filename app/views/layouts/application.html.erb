@@ -3,6 +3,7 @@
   <head>
     <title>Motilog</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -17,7 +18,9 @@
 
     <%= render 'layouts/flash'%>
 
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
 
     <!--%= render 'layouts/footer' %>-->
 

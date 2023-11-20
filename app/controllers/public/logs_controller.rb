@@ -1,7 +1,7 @@
 class Public::LogsController < ApplicationController
-  def new
-    @log = Log.new
-  end
+  # def new
+  #   @log = Log.new
+  # end
 
   def create
       @log = Log.new(log_params)
