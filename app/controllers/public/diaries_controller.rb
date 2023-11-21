@@ -7,12 +7,6 @@ class Public::DiariesController < ApplicationController
     else
       @diaries = Diary.all
     end
-    
-    if params[:group_id]
-      group = Group.find(params[:group_id])
-      @diaries = @diaries.where(group_id: group.id)
-    end
-    
       @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
   end
 
@@ -42,6 +36,7 @@ class Public::DiariesController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @diary = @user.diaries.find(params[:id])
+    @instrument = @user.instruments.all
     @post_comment = PostComment.new
   end
 
@@ -70,7 +65,7 @@ class Public::DiariesController < ApplicationController
   end
 
   def search
-    @diaries = current_user.diaries.search(params[:search])
+     @diaries = Diary.where("title LIKE ? OR text LIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
     render :index
   end
 

@@ -1,0 +1,67 @@
+　<%= image_tag @user.get_profile_image(100,100) %>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>name</th>
+        <th><%= @user.name %></th>
+      </tr>
+      <tr>
+        <th>profile</th>
+        <th><%= @user.profile %></th>
+      </tr>
+    </tbody>
+  </table>
+
+<% if @user == @current_user %>
+<div class="row">
+  <div class="col-6">
+    <%= link_to edit_user_path(@user) do %>
+      <button type="button" class="btn btn-secondary link-secondary w-100 bg-gray">
+        <i class="fas fa-user" style="color: white;"></i>
+      </button>
+    <% end %>
+  </div>
+  <div class="col-6 mx-n4">
+    <%= link_to new_user_instrument_path(current_user.id) do %>
+      <button type="button" class="btn btn-secondary link-secondary w-100 bg-gray">
+        <i class="fas fa-guitar" style="color: white;"></i>
+      </button>
+    <% end %>
+  </div>
+</div>
+<% end %>
+
+<% if @instrument.present? %>
+  <ul style="list-style-type: none;" class="p-0 mt-2">
+    <% @instrument.each do |instrument| %>
+      <li class="m-1">
+        <div class="row">
+          <div class="col-4">
+            <%= link_to user_instrument_path(user_id: instrument.user_id, id: instrument.id) do %>
+              <%= image_tag instrument.get_instrument_image(100, 100) %>
+            <% end %>
+          </div>
+          <div class="col-8">
+            <% if @user == @current_user %>
+              <%= link_to user_instrument_path(user_id: instrument.user_id, id: instrument.id) do %>
+                <%= instrument.name %>
+              <% end %>
+              <% if instrument.logs.present? %>
+                <% latest_log = instrument.logs.last %>
+                <div class="mt-1">
+                  <%= latest_log.created_at.strftime('%m/%d') %><br>
+                  <%= truncate(latest_log.log, length: 10) %>
+                </div>
+              <% end %>
+            <% else %>
+                <div style="font-weight: bold"><%= instrument.name %></div>
+                <%= instrument.profile %>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>表示するデータがありません。</p>
+<% end %>
