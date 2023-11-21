@@ -61,12 +61,16 @@
                  <% end %>
                 </td>
                <td>
+                 <div>
                  <% if diary.post_comments.present? %>
-                   <%= "#{diary.post_comments.count} コメント" %>
+                   <%= diary.post_comments.count %> <i class="fas fa-comment"></i>
                  <% end %>
+                 </div>
+                 <div>
                  <% if diary.favorites.present? %>
                    <%= diary.favorites.count %> <i class="fas fa-thumbs-up"></i>
                  <% end %>
+                 </div>
                </td>
            </tr>
         <% end %>
