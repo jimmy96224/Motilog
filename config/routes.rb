@@ -39,11 +39,11 @@ devise_for :admins,skip: [:registrations,:passwords], controllers: {
   }
   namespace :admin do
     resources :users, only: [:index, :show, :update] do
-     resources :diaries, only: [:show]
+     resources :diaries, only: [:show] do
+       resources :post_comments, only: [:destroy]
+     end
     end
     resources :diaries, only: [:index]
-    resources :post_comments, only: [:index, :edit, :update]
-    # get 'search', to: 'searches#search'
-  end
-
+    resources :post_comments, only: [:index]
+end
 end

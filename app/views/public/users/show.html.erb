@@ -11,72 +11,72 @@
     </div>
   </div>
 
-<div class="col-lg-8">
-<div class="row">
-    <div class= "col-12">
-      <div class="d-flex align-items-center justify-content-between">
-        <h2 class="m-0">日誌</h2>
-        <% if @user == @current_user %>
-          <%= link_to new_user_diary_path(@user) do %>
-          <button type="button" class="btn btn-secondary link-secondary bg-gray"><i class="fas fa-plus" style="color: white;"></i>
+  <div class="col-lg-8">
+    <div class="row">
+      <div class= "col-12">
+        <div class="d-flex align-items-center justify-content-between">
+          <h2 class="m-0">日誌</h2>
+          <% if @user == @current_user %>
+            <%= link_to new_user_diary_path(@user) do %>
+            <button type="button" class="btn btn-secondary link-secondary bg-gray"><i class="fas fa-plus" style="color: white;"></i>
+            <% end %>
           <% end %>
-        <% end %>
-     </div>
-      <table class="table table-hover">
-       <thead>
-           <tr>
-            <th></th>
-            <th class="text-center">楽器</th>
-            <th class="text-center">日付</th>
-            <th class="text-center">タグ</th>
-            <th class="text-center">タイトル</th>
-            <th></th>
-           </tr>
-       </thead>
-        <tbody>
-        <% @diaries.each do |diary| %>
-           <tr>
-               <td>
-                  <% if diary.diary_image.attached? %>
-                      <%= image_tag diary.get_diary_image(50, 50) %>
-                      <% else %>
-                  <% end %>
-               </td>
-               <td>
-                 <%= link_to user_instrument_path(user_id: diary.user_id, id: diary.instrument.id) do %>
-                   <%= diary.instrument.name %>
-                 <% end %>
-                </td>
-               <td><%= diary.date %></td>
-               <td>
-                  <% diary.tag_list.each do |tag|%>
-                  <div class="btn btn-primary">
-                  <%= link_to tag, user_path(id: @user, tag_name: tag, filtered_by_tag: true), class: "text-white" %>
-                  </div>
-                  <% end %>
-               </td>
-               <td>
-                 <%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>
-                   <%=truncate(diary.title, length: 20)%>
-                 <% end %>
-                </td>
-               <td>
-                 <div>
-                 <% if diary.post_comments.present? %>
-                   <%= diary.post_comments.count %> <i class="fas fa-comment"></i>
-                 <% end %>
-                 </div>
-                 <div>
-                 <% if diary.favorites.present? %>
-                   <%= diary.favorites.count %> <i class="fas fa-thumbs-up"></i>
-                 <% end %>
-                 </div>
-               </td>
-           </tr>
-        <% end %>
-       </tbody>
-      </table>
+       </div>
+        <table class="table table-hover">
+         <thead>
+             <tr>
+              <th></th>
+              <th class="text-center">楽器</th>
+              <th class="text-center">日付</th>
+              <th class="text-center">タグ</th>
+              <th class="text-center">タイトル</th>
+              <th></th>
+             </tr>
+         </thead>
+          <tbody>
+          <% @diaries.each do |diary| %>
+             <tr>
+                 <td>
+                    <% if diary.diary_image.attached? %>
+                        <%= image_tag diary.get_diary_image(50, 50) %>
+                        <% else %>
+                    <% end %>
+                 </td>
+                 <td>
+                   <%= link_to user_instrument_path(user_id: diary.user_id, id: diary.instrument.id) do %>
+                     <%= diary.instrument.name %>
+                   <% end %>
+                  </td>
+                 <td><%= diary.date %></td>
+                 <td>
+                    <% diary.tag_list.each do |tag|%>
+                    <div class="btn btn-primary">
+                    <%= link_to tag, user_path(id: @user, tag_name: tag, filtered_by_tag: true), class: "text-white" %>
+                    </div>
+                    <% end %>
+                 </td>
+                 <td>
+                   <%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>
+                     <%=truncate(diary.title, length: 20)%>
+                   <% end %>
+                  </td>
+                 <td>
+                   <div>
+                   <% if diary.post_comments.present? %>
+                     <%= diary.post_comments.count %> <i class="fas fa-comment"></i>
+                   <% end %>
+                   </div>
+                   <div>
+                   <% if diary.favorites.present? %>
+                     <%= diary.favorites.count %> <i class="fas fa-thumbs-up"></i>
+                   <% end %>
+                   </div>
+                 </td>
+             </tr>
+          <% end %>
+         </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 </div>

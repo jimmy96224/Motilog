@@ -1,61 +1,60 @@
-
-<div class="search_form">
- <%= form_with(url: admin_diaries_path, method: :get, local: true) do |form| %>
-   <div class="form-group">
-     <%= form.label :search, "Search Diaries" %>
-     <%= form.text_field :search, class: "form-control", placeholder: "Enter keywords to search" %>
-   </div>
-   <%= form.submit "Search", class: "btn btn-primary" %>
- <% end %>
-</div>
-
-<% if params[:filtered_by_tag] %>
-  <h2>Diaries Filtered by Tag: <%= params[:tag_name] %></h2>
-  <div>
-    <%= link_to admin_diaries_path do %>
-     一覧に戻る
+<% if params[:filtered_by_tag] || params[:search].present? %>
+  <h2>
+    <% if params[:filtered_by_tag] %>
+      タグ検索：<%= params[:tag_name] %>
+    <% elsif params[:search].present? %>
+      検索結果：キーワード - <%= params[:search] %>
     <% end %>
+  </h2>
+  <div>
+    <%= button_to '一覧に戻る', admin_diaries_path, method: :get, class: "btn btn-info" %>
   </div>
 <% end %>
 
+
 <div class="row mt-3">
-    <div class="col-md-8 offset-md-1">
-     <h2>Diary</h2>
+    <div class="col-10 mx-auto">
+      <div class="d-flex justify-content-between align-items-center">
+     <h2 class="m-0">日誌</h2>
+       <div class="search_form">
+      <%= form_with url: admin_diaries_path, method: :get, local: true do |f| %>
+        <%= f.text_field :search, placeholder: "キーワード検索" %>
+          <%= f.button class: "btn btn-info" do %>
+        <i class="fas fa-search"></i>
+      <% end %>
+      <% end %>
+      </div>
+     </div>
+
       <table class="table table-hover">
        <thead>
            <tr>
-            <th>ユーザー</th>
+            <th></th>
             <th>楽器</th>
             <th>日付</th>
             <th>タグ</th>
             <th>タイトル</th>
-            <th>本文</th>
            </tr>
        </thead>
         <tbody>
         <% @diaries.each do |diary| %>
            <tr>
-               <td>
-                 <%= link_to admin_user_path(id: diary.user.id) do %>
-                   <%= image_tag diary.user.get_profile_image(100,100) %><br>
-                   <%= diary.user.name %>
-                 <% end %>
-               </td>
-               <td>
-                   <%= diary.instrument.name %>
-                </td>
-               <td><%= diary.date %></td>
-               <td><%= render 'admin/diaries/tag_list', tag_list: diary.tag_list %></td>
-               <td>
-                 <%= link_to admin_user_diary_path(user_id: diary.user.id, id: diary.id) do %>
-                   <%=truncate(diary.title, length: 20)%>
-                 <% end %>
-               </td>
-               <td>
-                 <%= link_to admin_user_diary_path(user_id: diary.user.id, id: diary.id) do %>
-                   <%=truncate(diary.text, length: 20)%>
-                 <% end %>
-                </td>
+             <td>
+               <%= link_to admin_user_path(id: diary.user_id) do %>
+                 <%= image_tag diary.user.get_profile_image(50,50) %><br>
+                 <%=  diary.user.name %>
+               <% end %>
+             </td>
+             <td>
+                 <%= diary.instrument.name %>
+              </td>
+             <td><%= diary.date %></td>
+             <td><%= render 'admin/diaries/tag_list', tag_list: diary.tag_list %></td>
+             <td>
+               <%= link_to admin_user_diary_path(user_id: diary.user_id, id: diary.id) do %>
+                 <%= diary.title %>
+               <% end %>
+             </td>
            </tr>
         <% end %>
        </tbody>

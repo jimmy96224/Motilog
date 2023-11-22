@@ -1,37 +1,95 @@
-<div>
-    <% if @diary.diary_image.attached? %>
-        <%= image_tag @diary.get_diary_image(100, 100) %>
-    <% end %>
-</div>
-<div>
-    <%= @diary.date %>
-</div>
-<div>
-    <%= @diary.title %>
-</div>
-<div>
-    <%= @diary.text %>
-</div>
-
-<% if user_signed_in? %>
-    <%= link_to edit_user_diary_path(user_id: current_user, id: @diary) do %>
-    編集する
-    <% end %>
-<% end %>
-
-
-<p><%= @diary.favorites.count %> <i class="fas fa-thumbs-up"></i></p>
-
-
-<div>
-  <p>コメント件数：<%= @diary.post_comments.count %></p>
-  <% @diary.post_comments.each do |post_comment| %>
-    <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
-    <%= post_comment.user.name %>
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %>
-    <%= post_comment.comment %>
-    <% if current_user.admin? %>
-      <%= link_to 'コメントを削除', admin_post_comment_path(id: post_comment), method: :delete, data: { confirm: 'Are you sure?' } %>
-    <% end %>
+<div class="row justify-content-center">
+  <% if !@user.is_active %>
+    <h2 class="text-danger font-weight-bold">退会もしくは停止中のユーザー</h2>
   <% end %>
 </div>
+
+<div class="row">
+  <div class="col-lg-4">
+    <div class="col-lg-12">
+      <%= render 'layouts/user_info' %>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="row border border-secondary p-2">
+
+      <div class="col-12">
+        <div class="row align-items-center">
+          <div class="col-1 p-0">
+            <%= link_to admin_user_path(id: @user) do %>
+              <%= image_tag @user.get_profile_image(50, 50) %>
+            <% end %>
+          </div>
+          <div class="col-4 p-0" style="text-decoration:underline;">
+            <%= link_to admin_user_path(id: @user) do %>
+              <%= @user.name %><br>
+            <% end %>
+            <%= @diary.date %>
+          </div>
+          <div class="col-7 text-right">
+            <% @diary.tag_list.each do |tag| %>
+              <%= link_to admin_user_path(id: @user, tag_name: tag, filtered_by_tag: true), class: 'btn btn-secondary' do  %>
+                <%= tag %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+        <div class="col-12">
+          <div class="row justify-content-center">
+            タイトル：<%= @diary.title %>
+          </div>
+          <div class="row justify-content-center">
+            楽器：<%= @diary.instrument.name %>
+          </div>
+
+          <div class="row">
+            <% if @diary.diary_image.attached? %>
+              <%= image_tag @diary.get_diary_image(100, 100) %>
+            <% end %>
+          </div>
+          <div class="row">
+            <%= @diary.text %>
+          </div>
+        </div>
+    </div>
+
+
+    <div class="row mt-2 justify-content-end">
+      <p>
+        <%= @diary.favorites.count %> <i class="fas fa-thumbs-up"></i>
+      </p>
+    </div>
+
+<% if @diary.post_comments.present? %>
+    <div class="row border border-secondary p-2 mt-2">
+      <% @diary.post_comments.each do |post_comment| %>
+      <div class="col-12">
+        <div class="row align-items-center">
+          <div class="col-1 p-0">
+            <%= link_to admin_user_path(id: @user) do %>
+              <%= image_tag post_comment.user.get_profile_image(50,50) %>
+            <% end %>
+          </div>
+          <div class="col-4 p-0" style="text-decoration:underline;">
+            <%= link_to admin_user_path(id: @user) do %>
+              <%= post_comment.user.name %><br>
+            <% end %>
+            <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+          </div>
+          <div class="col-7 text-right">
+            <%= post_comment.comment %>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <%= link_to admin_user_diary_post_comment_path(user_id: post_comment.diary.user.id, diary_id: post_comment.diary.id, id: post_comment.id), method: :delete, class: "btn btn-danger" do %>
+              削除
+            <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
+  </div>

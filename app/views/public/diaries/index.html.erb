@@ -19,7 +19,6 @@
        <div class="search_form">
       <%= form_with url: search_user_diaries_path(current_user), method: :get do |f| %>
         <%= f.text_field :search, placeholder: "キーワード検索" %>
-        <!--%= f.submit "Search", class: "btn btn-info" %>-->
           <%= f.button class: "btn btn-info" do %>
         <i class="fas fa-search"></i>
       <% end %>
@@ -40,22 +39,22 @@
         <tbody>
         <% @diaries.each do |diary| %>
            <tr>
-               <td>
-                 <%= image_tag diary.user.get_profile_image(100,100) %><br>
-                 <%=  diary.user.name %>
-               </td>
-               <td>
-                 <%= link_to user_instrument_path(user_id: diary.user_id, id: diary.instrument.id) do %>
-                   <%= diary.instrument.name %>
-                 <% end %>
-                </td>
-               <td><%= diary.date %></td>
-               <td><%= render 'public/diaries/tag_list', tag_list: diary.tag_list %></td>
-               <td>
-                 <%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>
-                   <%= diary.title %>
-                 <% end %>
-               </td>
+             <td>
+               <%= image_tag diary.user.get_profile_image(100,100) %><br>
+               <%=  diary.user.name %>
+             </td>
+             <td>
+               <%= link_to user_instrument_path(user_id: diary.user_id, id: diary.instrument.id) do %>
+                 <%= diary.instrument.name %>
+               <% end %>
+              </td>
+             <td><%= diary.date %></td>
+             <td><%= render 'public/diaries/tag_list', tag_list: diary.tag_list %></td>
+             <td>
+               <%= link_to user_diary_path(user_id: diary.user_id, id: diary.id) do %>
+                 <%= diary.title %>
+               <% end %>
+             </td>
            </tr>
         <% end %>
        </tbody>

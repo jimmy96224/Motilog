@@ -6,59 +6,63 @@
 
 <div class="row justify-content-center">
   <div class="col-6">
-    
+
     <div class="row">
       <div class= "col-5">
-        <p class="font-weight-bold bg-secondary text-light text-center mt-4 h4">
+        <p class="bg-secondary text-light text-center mt-4 h4">
         ログイン
         </p>
       </div>
     </div>
-    
-<%= form_with model: @user, url: root_path do |f| %>
-    <div class="row">
-      <div class= "col-5">
-        <p class="font-weight-bold bg-secondary text-light text-center mt-4 h4">
-        ログイン
-        </p>
+
+    <div class="row justify-content-center mt-3">
+      <%= form_with model: @user, url: root_path do |f| %>
+
+      <div class="row justify-content-between">
+        <div>
+          <%= f.label :メールアドレス %>
+        </div>
+        <div class="ml-3 mt-2">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+      </div>
+
+      <div class="row d-flex justify-content-between">
+        <div class="mt-2">
+          <%= f.label :パスワード %>
+        </div>
+        <div class="ml-3 mt-2">
+          <%= f.password_field :password, autocomplete: "current-password" %>
+        </div>
+      </div>
+
+      <div class="row d-flex justify-content-center">
+        <div class="actions mt-2">
+          <%= f.submit "ログイン", class: "btn btn-primary" %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="mt-1">
+        <%= link_to 'アカウントを作成', signup_path, class: "btn btn-primary btn-block" %>
       </div>
     </div>
-<% end %>
   </div>
 </div>
 
-<div class="row">
-</div>
+<div class="row justify-content-center">
+  <div class="col-10 bg-dark rounded-pill d-flex justify-content-center pt-2 mt-5">
 
-
-
-
-
-
-
-<h2>Log in</h2>
-
-<%= form_with model: @user, url: root_path do |f| %>
-  <div class="field">
-    <%= f.label :メールアドレス %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :パスワード %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <div class="text-light">
+      <span class="font-weight-bold">MotiLogへようこそ</span><br>
+      MotiLogでは、<br>
+      ① 楽器のメンテナンスログ<br>
+      ② 練習記録<br>
+      を付けることができます。
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
+</div>
 
-<%= render "public/shared/links" %>

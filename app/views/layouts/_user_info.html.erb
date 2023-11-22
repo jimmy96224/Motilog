@@ -1,9 +1,27 @@
-　<%= image_tag @user.get_profile_image(100,100) %>
+<% if user_signed_in? %>
+  <%= link_to user_path(@user) do %>
+    <%= image_tag @user.get_profile_image(100, 100) %>
+  <% end %>
+<% elsif admin_signed_in? %>
+  <%= link_to admin_user_path(@user) do %>
+    <%= image_tag @user.get_profile_image(100, 100) %>
+  <% end %>
+<% end %>
   <table class="table">
     <tbody>
       <tr>
         <th>name</th>
-        <th><%= @user.name %></th>
+        <th>
+          <% if user_signed_in? %>
+            <%= link_to user_path(@user) do %>
+              <%= @user.name %>
+            <% end %>
+          <% elsif admin_signed_in? %>
+            <%= link_to admin_user_path(@user) do %>
+              <%= @user.name %>
+            <% end %>
+          <% end %>
+        </th>
       </tr>
       <tr>
         <th>profile</th>

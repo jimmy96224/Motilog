@@ -1,6 +1,6 @@
 <div class="row mt-3">
-    <div class="col-md-8 offset-md-1">
-     <h2>Users</h2>
+    <div class="col-10 mx-auto">
+     <h2>ユーザー一覧</h2>
       <table class="table table-hover">
        <thead>
            <tr>
@@ -16,7 +16,7 @@
            <tr>
                <td>
                  <%= link_to admin_user_path(id: user.id) do%>
-                   <%= image_tag user.get_profile_image(100,100) %>
+                   <%= image_tag user.get_profile_image(50,50) %>
                 <% end %>
                </td>
                <td>
