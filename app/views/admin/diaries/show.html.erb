@@ -84,7 +84,7 @@
           </div>
         </div>
         <div class="d-flex justify-content-end">
-            <%= link_to admin_user_diary_post_comment_path(user_id: post_comment.diary.user.id, diary_id: post_comment.diary.id, id: post_comment.id), method: :delete, class: "btn btn-danger" do %>
+            <%= link_to admin_user_diary_post_comment_path(user_id: post_comment.diary.user.id, diary_id: post_comment.diary.id, id: post_comment.id), method: :delete, class: "btn btn-danger", data: { confirm: "本当にこのコメントを削除しますか？" } do %>
               削除
             <% end %>
         </div>

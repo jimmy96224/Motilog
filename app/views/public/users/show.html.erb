@@ -51,7 +51,7 @@
                  <td>
                     <% diary.tag_list.each do |tag|%>
                     <div class="btn btn-primary">
-                    <%= link_to tag, user_path(id: @user, tag_name: tag, filtered_by_tag: true), class: "text-white" %>
+                    <%= link_to tag, admin_user_path(id: @user, tag_name: tag, filtered_by_tag: true), class: "text-white" %>
                     </div>
                     <% end %>
                  </td>

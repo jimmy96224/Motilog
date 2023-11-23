@@ -30,7 +30,7 @@
     </tbody>
   </table>
 
-<% if @user == @current_user %>
+<% if @user == @current_user && !@current_user.guest_user? %>
 <div class="row">
   <div class="col-6">
     <%= link_to edit_user_path(@user) do %>

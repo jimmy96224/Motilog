@@ -4,6 +4,13 @@ class Admin::PostCommentsController < ApplicationController
     @post_comments = PostComment.all
   end
 
+  def show
+    @user = User.find(params[:user_id])
+    @diaries = @user.diaries.all
+    @instrument = @user.instruments.all
+    @post_comments = @user.post_comments.all
+  end
+
   def destroy
     @user = User.find(params[:user_id])
     @diary = Diary.find(params[:diary_id])

@@ -1,4 +1,9 @@
-<div class="container">
+<div class="row justify-content-center">
+  <div class="col-3 bg-dark rounded-pill d-flex justify-content-center pt-2 mt-5">
+    <%= image_tag 'motilog.png', size: "150x70" %>
+  </div>
+</div>
+
   <div class="row">
 
     <p class="col-3 font-weight-bold bg-secondary text-light text-center m-5 h4">
@@ -6,9 +11,8 @@
     </p>
 
   </div>
-</div>
 
-<div class="row d-flex justify-content-center ">
+<div class="row d-flex justify-content-center">
   <div class="col-4">
     <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
       <div class="field form-row mb-4 font-weight-bold">
@@ -26,8 +30,23 @@
       </div>
     <% end %>
   </div>
+</div>
 
-  <%= render "admin/shared/links" %>
-
+<div class="row d-flex justify-content-center">
+  <div class="col-10">
+       <div class="row d-flex justify-content-center mt-5">
+        <div class="col-8">
+          <div class="d-flex justify-content-end">
+          <%= link_to root_path, class: "btn btn-info" do %>
+          ユーザーログインページ
+          <% end %>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
+
+
+
+
+

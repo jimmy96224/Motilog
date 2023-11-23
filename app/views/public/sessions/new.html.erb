@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <div class="col-6 bg-dark rounded-pill d-flex justify-content-center pt-2 mt-5">
+  <div class="col-6 bg-secondary rounded-pill d-flex justify-content-center pt-2 mt-5">
     <%= image_tag 'motilog.png', size: "300x140" %>
   </div>
 </div>
@@ -49,18 +49,25 @@
         <%= link_to 'アカウントを作成', signup_path, class: "btn btn-primary btn-block" %>
       </div>
     </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="mt-1">
+        <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <div class="row justify-content-center">
-  <div class="col-10 bg-dark rounded-pill d-flex justify-content-center pt-2 mt-5">
+  <div class="col-5 pt-2 mt-5 border">
 
-    <div class="text-light">
+    <div class="text-dark text-center">
       <span class="font-weight-bold">MotiLogへようこそ</span><br>
       MotiLogでは、<br>
-      ① 楽器のメンテナンスログ<br>
-      ② 練習記録<br>
-      を付けることができます。
+      楽器のメンテナンスログを記録・管理<br>
+      また、練習記録を日誌として記録<br>
+      することができます。
     </div>
 
   </div>

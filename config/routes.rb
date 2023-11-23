@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+# ゲストユーザーのルーティング
+devise_scope :user do
+    post "users/guest_sign_in", to: "users/sessions#guest_sign_in"
+end
+
 # User側のルーティング
 devise_for :users, skip: :all
  devise_scope :user do
@@ -39,6 +44,7 @@ devise_for :admins,skip: [:registrations,:passwords], controllers: {
   }
   namespace :admin do
     resources :users, only: [:index, :show, :update] do
+    resource :post_comments, only: [:show]
      resources :diaries, only: [:show] do
        resources :post_comments, only: [:destroy]
      end

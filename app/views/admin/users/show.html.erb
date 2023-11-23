@@ -8,6 +8,8 @@
     <h3><%= @user.goal %></h3>
 </div>
 
+
+
 <div class="row">
   <div class="col-lg-4">
     <div class="col-lg-12">
@@ -18,8 +20,17 @@
   <div class="col-lg-8">
     <div class="row">
       <div class= "col-12">
-          <h2 class="m-0">日誌</h2>
-        <table class="table table-hover">
+        <div class="row d-flex justify-content-between">
+          <div>
+            <span class="h4 mr-3">日誌</span><%= link_to "コメント一覧", admin_user_post_comments_path(@user), class: "btn btn-info btn-sm" %>
+          </div>
+          <div>
+            <% if params[:tag_name].present? %>
+            <span class="h4 mr-3">タグ：<%= params[:tag_name] %></span><%= link_to "一覧へ戻る", admin_user_path(@user), class: "btn btn-secondary btn-sm" %>
+            <% end %>
+          </div>
+        </div>
+        <table class="table table-hover mt-1">
          <thead>
              <tr>
               <th></th>
@@ -40,15 +51,13 @@
                     <% end %>
                  </td>
                  <td>
-                   <%= link_to user_instrument_path(user_id: diary.user_id, id: diary.instrument.id) do %>
-                     <%= diary.instrument.name %>
-                   <% end %>
+                    <%= diary.instrument.name %>
                   </td>
                  <td><%= diary.date %></td>
                  <td>
                     <% diary.tag_list.each do |tag|%>
                     <div class="btn btn-primary">
-                    <%= link_to tag, user_path(id: @user, tag_name: tag, filtered_by_tag: true), class: "text-white" %>
+                    <%= link_to tag, admin_user_path(id: @user, tag_name: tag, filtered_by_tag: true), class: "text-white" %>
                     </div>
                     <% end %>
                  </td>
