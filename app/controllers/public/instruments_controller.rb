@@ -1,4 +1,8 @@
 class Public::InstrumentsController < ApplicationController
+  
+  before_action :authenticate_user!
+  before_action :ensure_correct_user
+  
   def new
     @instrument = Instrument.new
   end
@@ -45,6 +49,13 @@ class Public::InstrumentsController < ApplicationController
       params[:instrument][:user_id] = current_user.id
       params.require(:instrument).permit(:name, :profile, :instrument_image, :user_id)
     end
+    
+  def ensure_correct_user
+    @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to user_path(current_user)
+    end
+  end
 
 end
 

@@ -1,10 +1,12 @@
 class Public::UsersController < ApplicationController
   
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, except: [:show]
   before_action :ensure_guest_user, only: [:edit]
 
   def show
     @user = User.find(params[:id])
-    @instrument = @user.instruments.all
+    @instruments = @user.instruments.all
     @diaries = @user.diaries.all
     @current_user = current_user
     @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
@@ -28,6 +30,7 @@ class Public::UsersController < ApplicationController
   end
 
   def close
+    @user = current_user
     if @user.update(is_active: false)
       flash[:success] = "退会処理が完了しました。"
       reset_session
@@ -51,5 +54,11 @@ class Public::UsersController < ApplicationController
     end
   end 
    
+  def ensure_correct_user
+    @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to user_path(current_user)
+    end
+  end
 
 end

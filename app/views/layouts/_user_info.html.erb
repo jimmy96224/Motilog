@@ -30,7 +30,8 @@
     </tbody>
   </table>
 
-<% if @user == @current_user && !@current_user.guest_user? %>
+<% if @user == @current_user %>
+<!--% if @user == @current_user && !@current_user.guest_user? %>-->
 <div class="row">
   <div class="col-6">
     <%= link_to edit_user_path(@user) do %>
@@ -49,9 +50,9 @@
 </div>
 <% end %>
 
-<% if @instrument.present? %>
+<% if @instruments.present? %>
   <ul style="list-style-type: none;" class="p-0 mt-2">
-    <% @instrument.each do |instrument| %>
+    <% @instruments.each do |instrument| %>
       <li class="m-1">
         <div class="row">
           <div class="col-4">
@@ -60,7 +61,7 @@
             <% end %>
           </div>
           <div class="col-8">
-            <% if @user == @current_user %>
+            <% if @user == current_user %>
               <%= link_to user_instrument_path(user_id: instrument.user_id, id: instrument.id) do %>
                 <%= instrument.name %>
               <% end %>
@@ -81,5 +82,5 @@
     <% end %>
   </ul>
 <% else %>
-  <p>表示するデータがありません。</p>
+  <p>楽器を登録してください。</p>
 <% end %>

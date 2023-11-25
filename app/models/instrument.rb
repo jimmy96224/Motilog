@@ -1,12 +1,13 @@
 class Instrument < ApplicationRecord
 
   has_one_attached :instrument_image
+  
   belongs_to :user
   has_many :logs
-
-  validates :name, presence: true,  length: { in: 2..20 }
-  validates :profile, length: { maximum: 100 }
-  validates :user, presence: true
+  
+  validates :user_id,   presence: true
+  validates :name,      presence: true,  length: { in: 2..20 }
+  validates :profile,   length: { maximum: 100 }
 
   def get_instrument_image(width, height)
    unless instrument_image.attached?

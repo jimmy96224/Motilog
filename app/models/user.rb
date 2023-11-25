@@ -4,13 +4,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :profile_image
-  has_many :instruments, dependent: :destroy
-  has_many :diaries, dependent: :destroy
-  has_many :post_comments, dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  
+  has_many :instruments,    dependent: :destroy
+  has_many :logs,           dependent: :destroy
+  has_many :diaries,        dependent: :destroy
+  has_many :post_comments,  dependent: :destroy
+  has_many :favorites,      dependent: :destroy
 
-  validates :name, presence: true,  length: { in: 2..20 }
-  validates :profile, length: { maximum: 100 }
+  validates :name,      presence: true,  length: { in: 2..20 }
+  validates :profile,   length: { maximum: 100 }
+  validates :goal,      length: { maximum: 30 }
+  
 
   def get_profile_image(width, height)
    unless profile_image.attached?
@@ -19,7 +23,7 @@ class User < ApplicationRecord
    end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
-  
+
   GUEST_USER_EMAIL = "guest@example.com"
 
   def self.guest
@@ -28,7 +32,7 @@ class User < ApplicationRecord
       user.name = "guestuser"
     end
   end
-  
+
   def guest_user?
     email == GUEST_USER_EMAIL
   end

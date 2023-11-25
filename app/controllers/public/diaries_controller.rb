@@ -1,5 +1,7 @@
 class Public::DiariesController < ApplicationController
 
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, except: [:index, :show]
 
   def index
     if params[:search]
@@ -11,6 +13,7 @@ class Public::DiariesController < ApplicationController
   end
 
   def new
+    @user = User.find(params[:user_id])
     @diary = Diary.new
   end
 
@@ -29,6 +32,7 @@ class Public::DiariesController < ApplicationController
       redirect_to user_path(current_user)
     else
       flash.now[:notice] = "投稿に失敗しました。"
+      @user = User.find(params[:user_id])
       render :new
     end
   end
@@ -36,7 +40,7 @@ class Public::DiariesController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @diary = @user.diaries.find(params[:id])
-    @instrument = @user.instruments.all
+    @instruments = @user.instruments.all
     @post_comment = PostComment.new
   end
 
@@ -73,6 +77,13 @@ class Public::DiariesController < ApplicationController
 
   def diary_params
     params.require(:diary).permit(:user_id, :instrument_id, :date, :title, :text, :diary_image, :tag_list)
+  end
+
+  def ensure_correct_user
+    @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to user_path(current_user)
+    end
   end
 
 end

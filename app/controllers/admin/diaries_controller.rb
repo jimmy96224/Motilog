@@ -1,4 +1,6 @@
 class Admin::DiariesController < ApplicationController
+  
+  before_action :authenticate_admin!
 
   def index
     @diaries = if params[:search]

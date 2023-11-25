@@ -44,8 +44,12 @@
                <%=  diary.user.name %>
              </td>
              <td>
-               <%= link_to user_instrument_path(user_id: diary.user_id, id: diary.instrument.id) do %>
-                 <%= diary.instrument.name %>
+               <% if diary.user == current_user %>
+                 <%= link_to user_instrument_path(user_id: diary.user_id, id: diary.instrument.id) do %>
+                   <%= diary.instrument.name %>
+                 <% end %>
+               <% else %>
+                   <%= diary.instrument.name %>
                <% end %>
               </td>
              <td><%= diary.date %></td>

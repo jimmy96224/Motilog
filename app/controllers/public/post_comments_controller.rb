@@ -1,4 +1,6 @@
 class Public::PostCommentsController < ApplicationController
+  
+  before_action :authenticate_user!
 
   def create
     diary = Diary.find(params[:diary_id])
@@ -9,8 +11,8 @@ class Public::PostCommentsController < ApplicationController
   end
 
   def destroy
-    @diary = Diary.find(params[:diary_id])
-    @diary.destroy
+    post_comment = PostComment.find(params[:id])
+    post_comment.destroy
     redirect_to user_diary_path(user_id: params[:user_id], id: params[:diary_id])
   end
 
