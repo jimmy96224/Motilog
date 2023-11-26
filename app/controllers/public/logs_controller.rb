@@ -1,5 +1,5 @@
 class Public::LogsController < ApplicationController
-  
+
   before_action :authenticate_user!
   before_action :ensure_correct_user
 
@@ -9,12 +9,12 @@ class Public::LogsController < ApplicationController
       @log.instrument = instrument
       @log.user_id = current_user.id
     if @log.save
-      flash[:notice] = "投稿に成功しました。"
+      flash[:notice] = "投稿に成功しました"
       redirect_to user_instrument_path(user_id: current_user.id, id: params[:instrument_id])
     else
       @instrument = Instrument.find(params[:instrument_id])
       @logs = @instrument.logs.all
-      flash.now[:notice] = "投稿に失敗しました。"
+      flash.now[:notice] = "投稿に失敗しました"
       render "public/instruments/show"
     end
   end
@@ -45,13 +45,13 @@ class Public::LogsController < ApplicationController
   end
 
   private
-  
+
   def log_params
     params.require(:log).permit(:date, :log, :instrument_id, :user_id)
   end
-    
+
   def ensure_correct_user
-    @user = User.find(params[:id])
+    @user = current_user
     unless @user == current_user
       redirect_to user_path(current_user)
     end
