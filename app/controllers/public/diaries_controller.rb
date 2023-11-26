@@ -28,10 +28,10 @@ class Public::DiariesController < ApplicationController
       end
 
     if @diary.save
-      flash[:notice] = "投稿に成功しました。"
+      flash[:notice] = "投稿に成功しました"
       redirect_to user_path(current_user)
     else
-      flash.now[:notice] = "投稿に失敗しました。"
+      flash.now[:notice] = "投稿に失敗しました"
       @user = User.find(params[:user_id])
       render :new
     end

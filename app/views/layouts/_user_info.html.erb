@@ -7,31 +7,31 @@
     <%= image_tag @user.get_profile_image(100, 100) %>
   <% end %>
 <% end %>
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>name</th>
-        <th>
-          <% if user_signed_in? %>
-            <%= link_to user_path(@user) do %>
-              <%= @user.name %>
-            <% end %>
-          <% elsif admin_signed_in? %>
-            <%= link_to admin_user_path(@user) do %>
-              <%= @user.name %>
-            <% end %>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th>name</th>
+      <th>
+        <% if user_signed_in? %>
+          <%= link_to user_path(@user) do %>
+            <%= @user.name %>
           <% end %>
-        </th>
-      </tr>
-      <tr>
-        <th>profile</th>
-        <th><%= @user.profile %></th>
-      </tr>
-    </tbody>
-  </table>
+        <% elsif admin_signed_in? %>
+          <%= link_to admin_user_path(@user) do %>
+            <%= @user.name %>
+          <% end %>
+        <% end %>
+      </th>
+    </tr>
+    <tr>
+      <th>profile</th>
+      <th><%= @user.profile %></th>
+    </tr>
+  </tbody>
+</table>
 
 <% if @user == @current_user %>
-<!--% if @user == @current_user && !@current_user.guest_user? %>-->
 <div class="row">
   <div class="col-6">
     <%= link_to edit_user_path(@user) do %>

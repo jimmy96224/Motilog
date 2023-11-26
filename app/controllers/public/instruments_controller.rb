@@ -10,10 +10,10 @@ class Public::InstrumentsController < ApplicationController
   def create
       @instrument = Instrument.new(instrument_params)
     if @instrument.save
-      flash[:notice] = "投稿に成功しました。"
+      flash[:notice] = "投稿に成功しました"
       redirect_to user_path(current_user)
     else
-      flash.now[:notice] = "投稿に失敗しました。"
+      flash.now[:notice] = "投稿に失敗しました"
       render :new
     end
   end
@@ -32,7 +32,7 @@ class Public::InstrumentsController < ApplicationController
   def update
     @instrument = Instrument.find_by(id: params[:id], user_id: params[:user_id])
     if @instrument.update(instrument_params)
-      redirect_to user_instrument_path(user_id: @instrument.user_id, id: @instrument.id), notice: "You have updated user successfully."
+      redirect_to user_instrument_path(user_id: @instrument.user_id, id: @instrument.id), notice: "アップデートに成功しました"
     else
       render "edit"
     end

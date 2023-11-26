@@ -15,17 +15,14 @@
   </div>
 <% end %>
 
-
-
-
 <div class='row mt-5 ml-5'>
   <div class="col-3 font-weight-bold bg-secondary text-light text-center">
     <h3 class="mt-2 mb-2" style="text-decoration:underline;">日誌を投稿</h3>
   </div>
 </div>
 
-  <div class='row mt-5'>
-    <div class="col-6 mx-auto">
+<div class='row mt-5'>
+  <div class="col-6 mx-auto">
     <%= form_with model: @diary, url: user_diaries_path, method: :post, local: true do |f| %>
       <%= render 'layouts/errors', obj: @diary %>
 

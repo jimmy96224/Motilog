@@ -1,3 +1,15 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
+#
+# It's strongly recommended that you check this file into your version control system.
+
 ActiveRecord::Schema.define(version: 2023_11_14_143125) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -41,18 +53,18 @@ ActiveRecord::Schema.define(version: 2023_11_14_143125) do
   end
 
   create_table "diaries", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "instrument_id"
-    t.date "date"
-    t.string "title"
-    t.text "text"
+    t.integer "user_id", null: false
+    t.integer "instrument_id", null: false
+    t.date "date", null: false
+    t.string "title", null: false
+    t.text "text", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "diary_id"
+    t.integer "user_id", null: false
+    t.integer "diary_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -66,18 +78,18 @@ ActiveRecord::Schema.define(version: 2023_11_14_143125) do
   end
 
   create_table "logs", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "instrument_id"
-    t.date "date"
-    t.text "log"
+    t.integer "user_id", null: false
+    t.integer "instrument_id", null: false
+    t.date "date", null: false
+    t.text "log", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "post_comments", force: :cascade do |t|
-    t.text "comment"
-    t.integer "user_id"
-    t.integer "diary_id"
+    t.text "comment", null: false
+    t.integer "user_id", null: false
+    t.integer "diary_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

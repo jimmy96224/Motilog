@@ -19,7 +19,7 @@ class Public::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to user_path(current_user), notice: "You have updated user successfully."
+      redirect_to user_path(current_user), notice: "アップデートに成功しました"
     else
       render "edit"
     end
@@ -32,15 +32,14 @@ class Public::UsersController < ApplicationController
   def close
     @user = current_user
     if @user.update(is_active: false)
-      flash[:success] = "退会処理が完了しました。"
+      flash[:success] = "退会処理が完了しました"
       reset_session
       redirect_to root_path
     else
-      flash.now[:danger] = "退会処理に失敗しました。"
+      flash.now[:danger] = "退会処理に失敗しました"
       render :show
     end
   end
-
 
   private
    def user_params

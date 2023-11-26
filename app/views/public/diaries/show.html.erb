@@ -1,13 +1,12 @@
 <div class="row">
-  <div class="col-lg-4">
-    <div class="col-lg-12">
+  <div class="col-4">
+    <div class="col-12">
       <%= render 'layouts/user_info' %>
     </div>
   </div>
 
-  <div class="col-lg-8">
+  <div class="col-8">
     <div class="row border border-secondary p-2">
-
       <div class="col-12">
         <div class="row align-items-center">
           <div class="col-1 p-0">
@@ -31,33 +30,31 @@
         </div>
       </div>
 
-        <div class="col-12">
-          <div class="row justify-content-center">
-            タイトル：<%= @diary.title %>
-          </div>
-          <div class="row justify-content-center">
-            楽器：<%= @diary.instrument.name %>
-          </div>
-
-          <div class="row">
-            <% if @diary.diary_image.attached? %>
-              <%= image_tag @diary.get_diary_image(100, 100) %>
-            <% end %>
-          </div>
-          <div class="row">
-            <%= @diary.text %>
-          </div>
-          <div class="row justify-content-end">
-            <% if @user == current_user %>
-              <%= link_to edit_user_diary_path(user_id: current_user, id: @diary), class: 'btn btn-secondary' do %>
-                編集する
-              <% end %>
-            <% end %>
-          </div>
-
+      <div class="col-12">
+        <div class="row justify-content-center">
+          タイトル：<%= @diary.title %>
         </div>
-    </div>
+        <div class="row justify-content-center">
+          楽器：<%= @diary.instrument.name %>
+        </div>
 
+        <div class="row">
+          <% if @diary.diary_image.attached? %>
+            <%= image_tag @diary.get_diary_image(100, 100) %>
+          <% end %>
+        </div>
+        <div class="row">
+          <%= @diary.text %>
+        </div>
+        <div class="row justify-content-end">
+          <% if @user == current_user %>
+            <%= link_to edit_user_diary_path(user_id: current_user, id: @diary), class: 'btn btn-secondary' do %>
+              編集する
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
     <div class="row mt-2 justify-content-end">
       <% if @diary.favorited_by?(current_user) %>
@@ -88,24 +85,24 @@
       </div>
     </div>
 
-<% if @diary.post_comments.present? %>
+    <% if @diary.post_comments.present? %>
     <div class="row border border-secondary p-2 mt-2">
       <% @diary.post_comments.each do |post_comment| %>
       <div class="col-12">
         <div class="row align-items-center">
           <div class="col-1 p-0">
             <%= link_to user_path(id: @user) do %>
-                <%= image_tag post_comment.user.get_profile_image(50,50) %>
+              <%= image_tag post_comment.user.get_profile_image(50,50) %>
             <% end %>
           </div>
           <div class="col-4 p-0" style="text-decoration:underline;">
             <%= link_to user_path(id: @user) do %>
               <% if @user == current_user %>
                 （自分）<%= post_comment.user.name %><br>
-                <% else %>
+              <% else %>
                 <%= post_comment.user.name %><br>
-                <% end %>
               <% end %>
+            <% end %>
             <%= post_comment.created_at.strftime('%Y/%m/%d') %>
           </div>
           <div class="col-7 text-right">
@@ -113,11 +110,13 @@
           </div>
         </div>
         <div class="d-flex justify-content-end">
-          <% if post_comment.user == current_user %>
-            <%= link_to user_diary_post_comment_path(user_id: @user, diary_id: @diary, id: post_comment), method: :delete, class: "btn btn-danger" do %>
-              削除
-            <% end %>
+        <% if post_comment.user == current_user %>
+              <%= link_to user_diary_post_comment_path
+              (user_id: @user, diary_id: @diary, id: post_comment),
+              method: :delete, class: "btn btn-danger"        do %>
+            削除
           <% end %>
+        <% end %>
         </div>
       </div>
       <% end %>

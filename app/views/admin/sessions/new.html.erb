@@ -4,20 +4,18 @@
   </div>
 </div>
 
-  <div class="row">
-
-    <p class="col-3 font-weight-bold bg-secondary text-light text-center m-5 h4">
-      管理者ログイン
-    </p>
-
-  </div>
+<div class="row">
+  <p class="col-3 font-weight-bold bg-secondary text-light text-center m-5 h4">
+    管理者ログイン
+  </p>
+</div>
 
 <div class="row d-flex justify-content-center">
   <div class="col-4">
     <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
       <div class="field form-row mb-4 font-weight-bold">
         <%= f.label :email, "メールアドレス"%>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@sample.com", class: "form-control" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@sample.com", class: "form-control", value: ENV['ADMIN_EMAIL'] %>
       </div>
 
       <div class="field form-row mb-4 font-weight-bold">

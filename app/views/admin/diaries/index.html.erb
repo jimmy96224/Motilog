@@ -11,53 +11,54 @@
   </div>
 <% end %>
 
-
 <div class="row mt-3">
-    <div class="col-10 mx-auto">
-      <div class="d-flex justify-content-between align-items-center">
-     <h2 class="m-0">日誌</h2>
-       <div class="search_form">
-      <%= form_with url: admin_diaries_path, method: :get, local: true do |f| %>
-        <%= f.text_field :search, placeholder: "キーワード検索" %>
-        <%= f.button class: "btn btn-info" do %>
-        <i class="fas fa-search"></i>
-      <% end %>
-      <% end %>
-      </div>
-     </div>
+  <div class="col-10 mx-auto">
 
-      <table class="table table-hover">
-       <thead>
-           <tr>
-            <th></th>
-            <th>楽器</th>
-            <th>日付</th>
-            <th>タグ</th>
-            <th>タイトル</th>
-           </tr>
-       </thead>
-        <tbody>
-        <% @diaries.each do |diary| %>
-           <tr>
-             <td>
-               <%= link_to admin_user_path(id: diary.user_id) do %>
-                 <%= image_tag diary.user.get_profile_image(50,50) %><br>
-                 <%=  diary.user.name %>
-               <% end %>
-             </td>
-             <td>
-                 <%= diary.instrument.name %>
-              </td>
-             <td><%= diary.date %></td>
-             <td><%= render 'admin/diaries/tag_list', tag_list: diary.tag_list %></td>
-             <td>
-               <%= link_to admin_user_diary_path(user_id: diary.user_id, id: diary.id) do %>
-                 <%= diary.title %>
-               <% end %>
-             </td>
-           </tr>
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="m-0">日誌</h2>
+      <div class="search_form">
+        <%= form_with url: admin_diaries_path, method: :get, local: true do |f| %>
+          <%= f.text_field :search, placeholder: "キーワード検索" %>
+          <%= f.button class: "btn btn-info" do %>
+            <i class="fas fa-search"></i>
+          <% end %>
         <% end %>
-       </tbody>
-      </table>
+      </div>
     </div>
+
+    <table class="table table-hover">
+     <thead>
+         <tr>
+          <th></th>
+          <th>楽器</th>
+          <th>日付</th>
+          <th>タグ</th>
+          <th>タイトル</th>
+         </tr>
+     </thead>
+      <tbody>
+      <% @diaries.each do |diary| %>
+         <tr>
+           <td>
+             <%= link_to admin_user_path(id: diary.user_id) do %>
+               <%= image_tag diary.user.get_profile_image(50,50) %><br>
+               <%=  diary.user.name %>
+             <% end %>
+           </td>
+           <td>
+               <%= diary.instrument.name %>
+            </td>
+           <td><%= diary.date %></td>
+           <td><%= render 'admin/diaries/tag_list', tag_list: diary.tag_list %></td>
+           <td>
+             <%= link_to admin_user_diary_path(user_id: diary.user_id, id: diary.id) do %>
+               <%= diary.title %>
+             <% end %>
+           </td>
+         </tr>
+      <% end %>
+     </tbody>
+    </table>
+
   </div>
+</div>

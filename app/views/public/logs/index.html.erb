@@ -1,37 +1,37 @@
 <div class="row mt-3">
-    <div class="col-8 mx-auto">
-     <h2>管理ログ一覧</h2>
-      <table class="table table-hover">
-       <thead>
-           <tr>
-            <th></th>
-            <th>楽器</th>
-            <th>日付</th>
-            <th>log</th>
-           </tr>
-       </thead>
-        <tbody>
+  <div class="col-8 mx-auto">
+   <h2>管理ログ一覧</h2>
+    <table class="table table-hover">
+     <thead>
+         <tr>
+          <th></th>
+          <th>楽器</th>
+          <th>日付</th>
+          <th>log</th>
+         </tr>
+     </thead>
+      <tbody>
         <% @logs.each do |log| %>
-           <tr>
-               <td>
-                  <%= link_to user_instrument_path(user_id: current_user.id, id: log.instrument.id) do %>
-                    <%= image_tag log.instrument.get_instrument_image(30,30) %>
-                  <% end %>
-               </td>
-               <td>
-                  <%= link_to user_instrument_path(user_id: current_user.id, id: log.instrument.id) do %>
-                    <%= log.instrument.name %>
-                  <% end %>
-                </td>
-               <td>
-                 <%= log.date %>
-                </td>
-               <td>
-                 <%= log.log %>
-                </td>
-           </tr>
+        <tr>
+          <td>
+            <%= link_to user_instrument_path(user_id: current_user.id, id: log.instrument.id) do %>
+              <%= image_tag log.instrument.get_instrument_image(30,30) %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to user_instrument_path(user_id: current_user.id, id: log.instrument.id) do %>
+              <%= log.instrument.name %>
+            <% end %>
+          </td>
+          <td>
+            <%= log.date %>
+          </td>
+          <td>
+            <%= log.log %>
+          </td>
+        </tr>
         <% end %>
-       </tbody>
-      </table>
-    </div>
+      </tbody>
+    </table>
   </div>
+</div>

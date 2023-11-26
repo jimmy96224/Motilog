@@ -27,25 +27,22 @@ class Public::LogsController < ApplicationController
     @log = Log.find(params[:id])
     @log.instrument_id = params[:instrument_id]
     if @log.update(log_params)
-      redirect_to user_instrument_path(user_id: current_user.id, id: params[:instrument_id]), notice: "You have updated user successfully."
+      redirect_to user_instrument_path(user_id: current_user.id, id: params[:instrument_id]), notice: "アップデートに成功しました"
     else
       render "edit"
     end
   end
 
-    def destroy
-      log = Log.find(params[:id])
-      log.destroy
-      redirect_to user_instrument_path(user_id: current_user.id, id: params[:instrument_id]), notice: "You have deleted a log successfully."
-    end
+  def destroy
+    log = Log.find(params[:id])
+    log.destroy
+    redirect_to user_instrument_path(user_id: current_user.id, id: params[:instrument_id]), notice: "ログの削除に成功しました"
+  end
 
-
-
-    def index
-      @user = current_user
-      @logs = @user.logs.all
-    end
-
+  def index
+    @user = current_user
+    @logs = @user.logs.all
+  end
 
   private
   

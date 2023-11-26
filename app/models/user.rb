@@ -4,17 +4,19 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :profile_image
-  
+
   has_many :instruments,    dependent: :destroy
   has_many :logs,           dependent: :destroy
   has_many :diaries,        dependent: :destroy
   has_many :post_comments,  dependent: :destroy
   has_many :favorites,      dependent: :destroy
-
-  validates :name,      presence: true,  length: { in: 2..20 }
-  validates :profile,   length: { maximum: 100 }
-  validates :goal,      length: { maximum: 30 }
   
+  # メールアドレスのバリデーション（1文字以上の英数字、@、1文字以上の英数字、ドット、1文字以上の英数字）
+  validates :email,   presence: true, format: { with: /\A[a-zA-Z0-9]{1,}[@][a-zA-Z0-9]{1,}[.][a-zA-Z0-9]{1,}\z/ }, uniqueness: true
+  validates :name,    presence: true,  length: { in: 2..20 }
+  validates :profile, length: { maximum: 100 }
+  validates :goal,    length: { maximum: 30 }
+
 
   def get_profile_image(width, height)
    unless profile_image.attached?

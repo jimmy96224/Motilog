@@ -11,18 +11,18 @@
 
 <div class="row mt-3">
     <div class="col-10 mx-auto">
+      
       <div class="d-flex justify-content-between align-items-center">
         <h2 class="m-0">コメント一覧</h2>
         <div class="search_form">
           <%= form_with url: admin_post_comments_path, method: :get, local: true, class: 'mb-3' do |f| %>
           <%= f.text_field :search, placeholder: "コメント検索" %>
             <%= f.button class: "btn btn-info" do %>
-            <i class="fas fa-search"></i>
+              <i class="fas fa-search"></i>
             <% end %>
           <% end %>
         </div>
       </div>
-
 
       <table class="table table-hover">
        <thead>
@@ -32,29 +32,30 @@
             <th>コメント先</th>
            </tr>
        </thead>
-        <tbody>
-        <% @post_comments.each do |post_comment| %>
-           <tr>
-               <td>
-                 <%= link_to admin_user_post_comments_path(id: post_comment.user.id) do %>
-                   <%= image_tag post_comment.user.get_profile_image(50,50) %><br>
-                   <%= post_comment.user.name %>
-                 <% end %>
-               </td>
-               <td>
-                  <%= link_to admin_user_diary_path(user_id: post_comment.diary.user_id, id: post_comment.diary_id) do %>
-                   <%= post_comment.comment %>
-                  <% end %>
-                </td>
-                <td>
-                  <%= link_to admin_user_diary_path(user_id: post_comment.diary.user_id, id: post_comment.diary_id) do %>
-                    ユーザー：<%= post_comment.diary.user.name %><br>
-                    タイトル：<%= post_comment.diary.title %>
-                  <% end %>
-                </td>
-           </tr>
-        <% end %>
-       </tbody>
+          <tbody>
+            <% @post_comments.each do |post_comment| %>
+            <tr>
+              <td>
+                <%= link_to admin_user_post_comments_path(id: post_comment.user.id) do %>
+                  <%= image_tag post_comment.user.get_profile_image(50,50) %><br>
+                  <%= post_comment.user.name %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to admin_user_diary_path(user_id: post_comment.diary.user_id, id: post_comment.diary_id) do %>
+                  <%= post_comment.comme %>nt
+                <% end %>
+              </td>
+              <td>
+                <%= link_to admin_user_diary_path(user_id: post_comment.diary.user_id, id: post_comment.diary_id) do %>
+                  ユーザー：<%= post_comment.diary.user.name %><br>
+                  タイトル：<%= post_comment.diary.title %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
       </table>
+      
     </div>
   </div>

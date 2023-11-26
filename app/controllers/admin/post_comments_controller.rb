@@ -19,16 +19,16 @@ class Admin::PostCommentsController < ApplicationController
     @post_comment = PostComment.find(params[:id])
 
     if @post_comment.destroy
-      flash[:success] = 'Comment successfully deleted.'
+      flash[:success] = 'コメントが削除されました'
     else
-      flash[:error] = 'Failed to delete comment.'
+      flash[:error] = 'コメントの削除に失敗しました'
     end
 
     redirect_to admin_user_diary_path(user_id: @user.id ,id: @diary.id)
   end
 
   def post_comment_params
-    params.require(:post_comment).permit(:diary_id, :comment, :user_id) # 必要な属性に合わせて修正
+    params.require(:post_comment).permit(:diary_id, :comment, :user_id)
   end
 
 end
