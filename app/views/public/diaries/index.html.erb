@@ -1,3 +1,4 @@
+<!--タグ検索、キーワード検索時に一覧へ戻るボタンを表示-->
 <% if params[:filtered_by_tag] || params[:search].present? %>
   <h2>
     <% if params[:filtered_by_tag] %>
@@ -49,7 +50,6 @@
                  <%= diary.instrument.name %>
                <% end %>
              <% else %>
-                 <%= diary.instrument.name %>
              <% end %>
             </td>
            <td><%= diary.date %></td>

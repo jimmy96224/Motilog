@@ -26,6 +26,7 @@ class User < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
+  # ゲストユーザーの設定
   GUEST_USER_EMAIL = "guest@example.com"
 
   def self.guest

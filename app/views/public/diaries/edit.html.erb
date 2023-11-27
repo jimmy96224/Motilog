@@ -9,6 +9,7 @@
       </div>
       <div class="form-group">
         <%= f.label :instrument %>
+        <!--登録した楽器をプルダウンで選択、選択した楽器のIDをDiaryに持たせる-->
         <%= f.select :instrument, Instrument.all.map { |i| [i.name, i.id] }, class: "form-control instrument", include_blank: '選択してください', required: true %>
       </div>
       <div class="form-group">

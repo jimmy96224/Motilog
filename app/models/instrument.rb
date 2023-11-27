@@ -1,10 +1,11 @@
 class Instrument < ApplicationRecord
 
   has_one_attached :instrument_image
-  
+
   belongs_to :user
-  has_many :logs
-  
+  has_many :logs,      dependent: :destroy
+  has_many :diaries, dependent: :destroy
+
   validates :user_id,   presence: true
   validates :name,      presence: true,  length: { in: 2..20 }
   validates :profile,   length: { maximum: 100 }
