@@ -113,7 +113,7 @@
         <% if post_comment.user == current_user %>
               <%= link_to user_diary_post_comment_path
               (user_id: @user, diary_id: @diary, id: post_comment),
-              method: :delete, class: "btn btn-danger"        do %>
+              method: :delete, class: "btn btn-danger" do %>
             削除
           <% end %>
         <% end %>
