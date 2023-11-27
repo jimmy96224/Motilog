@@ -6,6 +6,7 @@
   </div>
 
   <div class="col-8">
+    <!--日誌詳細-->
     <div class="row border border-secondary p-2">
       <div class="col-12">
         <div class="row align-items-center">
@@ -29,7 +30,6 @@
           </div>
         </div>
       </div>
-
       <div class="col-12">
         <div class="row justify-content-center">
           タイトル：<%= @diary.title %>
@@ -55,7 +55,7 @@
         </div>
       </div>
     </div>
-
+    <!--いいねボタン/いいねカウント-->
     <div class="row mt-2 justify-content-end">
       <% if @diary.favorited_by?(current_user) %>
       <p>
@@ -71,11 +71,11 @@
       </p>
       <% end %>
     </div>
-
+    <!--コメント欄-->
     <div class="row justify-content-end">
       <div class="col-12">
         <%= form_with model: [@diary, @post_comment], url: user_diary_post_comments_path(user_id: @diary.user, diary_id: @diary) do |f| %>
-          <div class="row">
+          <div class="row mb-2">
             <div class="col-12">
               <%= f.text_area :comment, rows: '2', placeholder: "コメントをここに", class: "form-control" %>
               <%= f.submit "コメントする", class: "btn btn-primary btn-block" %>
@@ -84,41 +84,41 @@
         <% end %>
       </div>
     </div>
-
+    <!--コメント表示-->
     <% if @diary.post_comments.present? %>
-    <div class="row border border-secondary p-2 mt-2">
       <% @diary.post_comments.each do |post_comment| %>
-      <div class="col-12">
-        <div class="row align-items-center">
-          <div class="col-1 p-0">
-            <%= link_to user_path(id: @user) do %>
-              <%= image_tag post_comment.user.get_profile_image(50,50) %>
-            <% end %>
+        <div class="card border-secondary mb-2">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="col-1 p-0">
+                <%= link_to user_path(id: @user) do %>
+                  <%= image_tag post_comment.user.get_profile_image(50,50) %>
+                <% end %>
+              </div>
+              <div class="col-8 p-0" style="text-decoration:underline;">
+                <%= link_to user_path(id: @user) do %>
+                  <% if @user == current_user %>
+                    （自分）<%= post_comment.user.name %><br>
+                  <% else %>
+                    <%= post_comment.user.name %><br>
+                  <% end %>
+                <% end %>
+                <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+              </div>
+              <div class="ml-4">
+                <% if post_comment.user == current_user %>
+                  <%= link_to user_diary_post_comment_path(user_id: @user, diary_id: @diary, id: post_comment), method: :delete, class: "btn btn-danger" do %>
+                  コメントを削除
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <div class="text-right font-weight-bold">
+              <%= post_comment.comment %>
+            </div>
           </div>
-          <div class="col-4 p-0" style="text-decoration:underline;">
-            <%= link_to user_path(id: @user) do %>
-              <% if @user == current_user %>
-                （自分）<%= post_comment.user.name %><br>
-              <% else %>
-                <%= post_comment.user.name %><br>
-              <% end %>
-            <% end %>
-            <%= post_comment.created_at.strftime('%Y/%m/%d') %>
-          </div>
-          <div class="col-7 text-right">
-            <%= post_comment.comment %>
-          </div>
-        </div>
-        <div class="d-flex justify-content-end">
-        <% if post_comment.user == current_user %>
-          <%= link_to user_diary_post_comment_path(user_id: @user, diary_id: @diary, id: post_comment), method: :delete, class: "btn btn-danger" do %>
-            削除
-          <% end %>
-        <% end %>
-        </div>
       </div>
       <% end %>
-    </div>
     <% end %>
   </div>
 </div>
