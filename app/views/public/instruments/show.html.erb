@@ -51,14 +51,12 @@
           <% @logs.each do |log| %>
           <tr>
             <td>
-              <%= link_to edit_user_instrument_log_path
-                  (user_id: log.instrument.user_id, instrument_id: log.instrument.id, id: log.id) do %>
+              <%= link_to edit_user_instrument_log_path(user_id: log.instrument.user_id, instrument_id: log.instrument.id, id: log.id) do %>
                 <%= log.date.strftime('%Y.%m/%d') %>
               <% end %>
             </td>
             <td>
-              <%= link_to edit_user_instrument_log_path
-                  (user_id: log.instrument.user_id, instrument_id: log.instrument.id, id: log.id) do %>
+              <%= link_to edit_user_instrument_log_path(user_id: log.instrument.user_id, instrument_id: log.instrument.id, id: log.id) do %>
                 <%= log.log %>
               <% end %>
             </td>
