@@ -1,12 +1,14 @@
 class Admin::DiariesController < ApplicationController
-  
+
   before_action :authenticate_admin!
 
   def index
-    @diaries = if params[:search]
-      Diary.where("title LIKE ?", "%#{params[:search]}%")
+    if params[:search].present?
+      @diaries = Diary.where("title LIKE ?", "%#{params[:search]}%")
+    elsif params[:tag_name].present?
+      @diaries = Diary.tagged_with(params[:tag_name])
     else
-      Diary.all
+      @diaries = Diary.all
     end
   end
 
