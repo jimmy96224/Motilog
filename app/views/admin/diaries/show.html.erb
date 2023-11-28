@@ -62,35 +62,33 @@
     </div>
 
     <% if @diary.post_comments.present? %>
-      <div class="row border border-secondary p-2 mt-2">
-        <% @diary.post_comments.each do |post_comment| %>
-        <div class="col-12">
-          <div class="row align-items-center">
-            <div class="col-1 p-0">
-              <%= link_to admin_user_path(id: @user) do %>
-                <%= image_tag post_comment.user.get_profile_image(50,50) %>
-              <% end %>
+      <% @diary.post_comments.each do |post_comment| %>
+        <div class="card border-secondary mb-2">
+          <div class="card-body">
+            <div class="d-flex">
+              <div class="col-1 p-0">
+                <%= link_to admin_user_path(id: @user) do %>
+                  <%= image_tag post_comment.user.get_profile_image(50,50) %>
+                <% end %>
+              </div>
+              <div class="col-8 p-0" style="text-decoration:underline;">
+                <%= link_to admin_user_path(id: @user) do %>
+                  <%= post_comment.user.name %><br>
+                <% end %>
+                <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+              </div>
+              <div class="ml-4">
+                <%= link_to admin_user_diary_post_comment_path(user_id: post_comment.diary.user.id, diary_id: post_comment.diary.id, id: post_comment.id), method: :delete, class: "btn btn-danger", data: { confirm: "本当にこのコメントを削除しますか？" } do %>
+                  コメントを削除
+                <% end %>
+              </div>
             </div>
-            <div class="col-4 p-0" style="text-decoration:underline;">
-              <%= link_to admin_user_path(id: @user) do %>
-                <%= post_comment.user.name %><br>
-              <% end %>
-              <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+            <div class="text-right font-weight-bold">
+            <%= post_comment.comment %>
             </div>
-            <div class="col-7 text-right">
-              <%= post_comment.comment %>
-            </div>
-          </div>
-          <div class="d-flex justify-content-end">
-              <%= link_to admin_user_diary_post_comment_path(user_id: post_comment.diary.user.id, diary_id: post_comment.diary.id, id: post_comment.id),
-              method: :delete, class: "btn btn-danger", data: { confirm: "本当にこのコメントを削除しますか？" } do %>
-                削除
-              <% end %>
           </div>
         </div>
-        <% end %>
-      </div>
+      <% end %>
     <% end %>
-    </div>
-
+  </div>
 </div>
