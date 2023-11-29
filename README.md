@@ -23,8 +23,8 @@
 - 過去の日誌を振り返り、目標をたてるとき
 ​
 ## 設計書
--テーブル定義書(https://docs.google.com/spreadsheets/d/1i1gWz6A2xbIe4qVFNuuV6uitKc3DYtBJ/edit#gid=1631927813)
--ワイヤーフレーム(https://www.figma.com/file/S7wg0crht1XsdXsqRI6z4w/%E7%84%A1%E9%A1%8C?type=design&node-id=0%3A1&mode=design&t=9aVE2hoekKA9VlRr-1)
+- テーブル定義書(https://docs.google.com/spreadsheets/d/1i1gWz6A2xbIe4qVFNuuV6uitKc3DYtBJ/edit#gid=1631927813)
+- ワイヤーフレーム(https://www.figma.com/file/S7wg0crht1XsdXsqRI6z4w/%E7%84%A1%E9%A1%8C?type=design&node-id=0%3A1&mode=design&t=9aVE2hoekKA9VlRr-1)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
