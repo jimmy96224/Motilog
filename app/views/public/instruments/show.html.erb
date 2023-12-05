@@ -20,7 +20,7 @@
 
       <div class="mt-3">
         <%= form_with model: @log, url: user_instrument_logs_path(user_id: @instrument.user_id, instrument_id: @instrument.id), method: :post, local: true do |f| %>
-        <%= render 'layouts/errors', obj: @log %>
+        <%= render 'shared/errors', obj: @log %>
           <div class="form-group">
             <%= f.label :日付%>
             <%= f.date_field :date, class: "form-control-file user_image", accept: 'image/*' %>

@@ -11,7 +11,7 @@
 <div class="row">
   <div class="col-4">
     <div class="col-12">
-      <%= render 'layouts/user_info' %>
+      <%= render 'shared/user_info' %>
     </div>
   </div>
 
@@ -42,40 +42,33 @@
           <tbody>
           <% @diaries.each do |diary| %>
              <tr>
-                 <td>
-                    <% if diary.diary_image.attached? %>
-                      <%= image_tag diary.get_diary_image(50, 50) %>
-                      <% else %>
-                    <% end %>
-                 </td>
-                 <td>
-                    <%= diary.instrument.name %>
-                  </td>
-                 <td><%= diary.date %></td>
-                 <td>
-                    <% diary.tag_list.each do |tag|%>
-                    <div class="btn btn-primary">
+               <td>
+                  <%= display_diary_image(diary) %>
+               </td>
+               <td>
+                  <%= diary.instrument.name %>
+                </td>
+               <td><%= diary.date %></td>
+               <td>
+                  <% diary.tag_list.each do |tag|%>
+                  <div class="btn btn-primary">
                     <%= link_to tag, admin_user_path(id: @user, tag_name: tag, filtered_by_tag: true), class: "text-white" %>
-                    </div>
-                    <% end %>
-                 </td>
-                 <td>
-                   <%= link_to admin_user_diary_path(user_id: diary.user_id, id: diary.id) do %>
-                     <%=truncate(diary.title, length: 20)%>
-                   <% end %>
-                  </td>
-                 <td>
-                   <div>
-                   <% if diary.post_comments.present? %>
-                     <%= diary.post_comments.count %> <i class="fas fa-comment"></i>
-                   <% end %>
-                   </div>
-                   <div>
-                   <% if diary.favorites.present? %>
-                     <%= diary.favorites.count %> <i class="fas fa-thumbs-up"></i>
-                   <% end %>
-                   </div>
-                 </td>
+                  </div>
+                  <% end %>
+               </td>
+               <td>
+                 <%= link_to admin_user_diary_path(user_id: diary.user_id, id: diary.id) do %>
+                   <%=truncate(diary.title, length: 20)%>
+                 <% end %>
+                </td>
+               <td>
+                 <div>
+                   <%= display_comment_count(diary) %>
+                 </div>
+                 <div>
+                   <%= display_favorites_count(diary) %>
+                 </div>
+               </td>
              </tr>
           <% end %>
          </tbody>

@@ -1,15 +1,5 @@
-<% if params[:filtered_by_tag] || params[:search].present? %>
-  <h2>
-    <% if params[:filtered_by_tag] %>
-      タグ検索：<%= params[:tag_name] %>
-    <% elsif params[:search].present? %>
-      検索結果：キーワード - <%= params[:search] %>
-    <% end %>
-  </h2>
-  <div>
-    <%= button_to '一覧に戻る', admin_diaries_path, method: :get, class: "btn btn-info" %>
-  </div>
-<% end %>
+<!--タグ検索、キーワード検索時に一覧へ戻るボタンを表示-->
+<%= render 'shared/search_bar', locals: { button_path: admin_diaries_path } %>
 
 <div class="row mt-3">
   <div class="col-10 mx-auto">

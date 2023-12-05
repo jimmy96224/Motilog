@@ -7,7 +7,7 @@ class Public::DiariesController < ApplicationController
     if params[:search]
       @diaries = Diary.where("title LIKE ?", "%#{params[:search]}%")
     else
-      @diaries = Diary.all
+      @diaries = Diary.all.order(date: :asc)
     end
       @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
   end
@@ -47,6 +47,7 @@ class Public::DiariesController < ApplicationController
   def edit
     @user = User.find(params[:user_id])
     @diary = @user.diaries.find(params[:id])
+    current_user_instruments = current_user.instruments
   end
 
   def update

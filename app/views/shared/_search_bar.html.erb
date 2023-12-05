@@ -1,0 +1,12 @@
+<% if params[:filtered_by_tag] || params[:search].present? %>
+  <h2>
+    <% if params[:filtered_by_tag] %>
+      タグ検索：<%= params[:tag_name] %>
+    <% elsif params[:search].present? %>
+      検索結果：キーワード - <%= params[:search] %>
+    <% end %>
+  </h2>
+  <div>
+    <%= button_to '一覧に戻る', locals[:button_path], method: :get, class: "btn btn-info" %>
+  </div>
+<% end %>

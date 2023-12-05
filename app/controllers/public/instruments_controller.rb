@@ -22,7 +22,7 @@ class Public::InstrumentsController < ApplicationController
     @user = current_user
     @instrument = Instrument.find(params[:id])
     @log = Log.new
-    @logs = @instrument.logs.all
+    @logs = @instrument.logs.all.order(date: :asc)
   end
 
   def edit

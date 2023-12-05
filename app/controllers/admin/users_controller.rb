@@ -13,7 +13,7 @@ class Admin::UsersController < ApplicationController
     else
       @diaries = @user.diaries.all
     end
-    @instrument = @user.instruments.all
+    @instruments = @user.instruments.all
   end
 
   def update

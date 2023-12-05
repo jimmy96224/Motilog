@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -17,12 +17,11 @@ class User < ApplicationRecord
   validates :profile, length: { maximum: 100 }
   validates :goal,    length: { maximum: 30 }
 
-
   def get_profile_image(width, height)
-   unless profile_image.attached?
+  unless profile_image.attached?
     file_path = Rails.root.join('app/assets/images/default_image.jpg')
     profile_image.attach(io: File.open(file_path), filename: 'default_image.jpg', content_type: 'image/jpeg')
-   end
+  end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
 

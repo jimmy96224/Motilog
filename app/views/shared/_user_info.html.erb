@@ -1,27 +1,11 @@
-<% if user_signed_in? %>
-  <%= link_to user_path(@user) do %>
-    <%= image_tag @user.get_profile_image(100, 100) %>
-  <% end %>
-<% elsif admin_signed_in? %>
-  <%= link_to admin_user_path(@user) do %>
-    <%= image_tag @user.get_profile_image(100, 100) %>
-  <% end %>
-<% end %>
+<%= profile_image_link(@user) %>
 
 <table class="table">
   <tbody>
     <tr>
       <th>name</th>
       <th>
-        <% if user_signed_in? %>
-          <%= link_to user_path(@user) do %>
-            <%= @user.name %>
-          <% end %>
-        <% elsif admin_signed_in? %>
-          <%= link_to admin_user_path(@user) do %>
-            <%= @user.name %>
-          <% end %>
-        <% end %>
+        <%= user_name_link(@user) %>
       </th>
     </tr>
     <tr>
@@ -31,7 +15,7 @@
   </tbody>
 </table>
 
-<% if @user == @current_user %>
+<% if @user == current_user %>
 <div class="row">
   <div class="col-6">
     <%= link_to edit_user_path(@user) do %>
@@ -65,13 +49,7 @@
               <%= link_to user_instrument_path(user_id: instrument.user_id, id: instrument.id) do %>
                 <%= instrument.name %>
               <% end %>
-              <% if instrument.logs.present? %>
-                <% latest_log = instrument.logs.last %>
-                <div class="mt-1">
-                  <%= latest_log.created_at.strftime('%m/%d') %><br>
-                  <%= truncate(latest_log.log, length: 10) %>
-                </div>
-              <% end %>
+              <%= display_latest_log_details(instrument) %>
             <% else %>
                 <div style="font-weight: bold"><%= instrument.name %></div>
                 <%= instrument.profile %>

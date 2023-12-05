@@ -15,7 +15,7 @@ class Admin::DiariesController < ApplicationController
   def show
     @diary = Diary.find(params[:id])
     @user = @diary.user
-    @instrument = @user.instruments.all
+    @instruments = @user.instruments.all
   end
 
 end

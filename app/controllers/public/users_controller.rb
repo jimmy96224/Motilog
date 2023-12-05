@@ -7,8 +7,7 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @instruments = @user.instruments.all
-    @diaries = @user.diaries.all
-    @current_user = current_user
+    @diaries = @user.diaries.all.order(date: :asc)
     @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
   end
 

@@ -7,7 +7,7 @@
   <div class='row mt-5'>
     <div class="mx-auto">
     <%= form_with model: @instrument, url: user_instruments_path, local: true do |f| %>
-      <%= render 'layouts/errors', obj: @instrument %>
+      <%= render 'shared/errors', obj: @instrument %>
 
       <div class="form-group">
         <%= f.label :楽器の写真 %>
