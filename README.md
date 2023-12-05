@@ -1,7 +1,7 @@
 # Motilog​
 ## サイト概要
 ### サイトテーマ
-楽器の練習日誌を記録・共有することで、モチベーションの維持・向上を促すコミュニティサイト
+楽器の練習日誌を記録・共有することで、モチベーションの維持・向上を促す記録系サイト
 ​
 ### テーマを選んだ理由
 学生の頃から続けているマンドリン、そして社会人になって始めたクラシックギター、
@@ -23,11 +23,14 @@
 - 過去の日誌を振り返り、目標をたてるとき
 ​
 ## 設計書
-<!--テーマを設定・提出する時点では不要です-->
+- テーブル定義書(https://docs.google.com/spreadsheets/d/1i1gWz6A2xbIe4qVFNuuV6uitKc3DYtBJ/edit#gid=1631927813)
+- ワイヤーフレーム(https://www.figma.com/file/S7wg0crht1XsdXsqRI6z4w/%E7%84%A1%E9%A1%8C?type=design&node-id=0%3A1&mode=design&t=9aVE2hoekKA9VlRr-1)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
-- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- 言語：HTML,Ruby,SQL
 - フレームワーク：Ruby on Rails
-- JSライブラリ：jQuery
 - IDE：Cloud9
+
+## 使用素材
+-いらすとや(https://www.irasutoya.com/)
