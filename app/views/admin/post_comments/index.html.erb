@@ -1,13 +1,4 @@
-<% if params[:search].present? %>
-  <h2>
-    <% if params[:search].present? %>
-      検索結果：キーワード - <%= params[:search] %>
-    <% end %>
-  </h2>
-  <div>
-    <%= button_to '一覧に戻る', admin_post_comments_path, method: :get, class: "btn btn-info" %>
-  </div>
-<% end %>
+<%= display_search_result(params[:search]) %>
 
 <div class="row mt-3">
     <div class="col-10 mx-auto">

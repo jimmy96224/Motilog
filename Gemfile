@@ -66,6 +66,8 @@ group :production do
   gem 'mysql2'
 end
 
+gem "chartkick"
+
 gem "net-smtp"
 gem "net-pop"
 gem "net-imap"

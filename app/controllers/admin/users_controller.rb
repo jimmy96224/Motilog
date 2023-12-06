@@ -9,11 +9,12 @@ class Admin::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if params[:tag_name].present?
-      @diaries = @user.diaries.tagged_with(params[:tag_name])
+      @diaries = @user.diaries.tagged_with(params[:tag_name]).order(date: :asc)
     else
-      @diaries = @user.diaries.all
+      @diaries = @user.diaries.all.order(date: :asc)
     end
     @instruments = @user.instruments.all
+    @score_data = @diaries.pluck(:date, :score)
   end
 
   def update

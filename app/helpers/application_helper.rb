@@ -50,5 +50,11 @@ module ApplicationHelper
     return unless diary.favorites.present?
     content_tag(:div, "#{diary.favorites.count} 💛".html_safe)
   end
+  
+  def inactive_user_message(user)
+    if !user.is_active
+      content_tag(:h2, '退会もしくは停止中のユーザー', class: 'text-danger font-weight-bold')
+    end
+  end
 
 end

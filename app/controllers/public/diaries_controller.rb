@@ -18,14 +18,15 @@ class Public::DiariesController < ApplicationController
   end
 
   def create
-      @diary = Diary.new(diary_params)
-      @diary.user_id=current_user.id
-      if params[:diary][:instrument].present?
-        @diary.instrument = Instrument.find(params[:diary][:instrument])
-      end
-      if params[:diary][:diary_image].present?
-        @diary.diary_image.attach(params[:diary][:diary_image])
-      end
+    @diary = Diary.new(diary_params)
+    @diary.score = Language.get_data(diary_params[:text])
+    @diary.user_id=current_user.id
+    if params[:diary][:instrument].present?
+      @diary.instrument = Instrument.find(params[:diary][:instrument])
+    end
+    if params[:diary][:diary_image].present?
+      @diary.diary_image.attach(params[:diary][:diary_image])
+    end
 
     if @diary.save
       flash[:notice] = "投稿に成功しました"
@@ -42,6 +43,8 @@ class Public::DiariesController < ApplicationController
     @diary = @user.diaries.find(params[:id])
     @instruments = @user.instruments.all
     @post_comment = PostComment.new
+    @diaries = @user.diaries.all
+    @score_data = @diaries.pluck(:date, :score)
   end
 
   def edit
@@ -55,6 +58,9 @@ class Public::DiariesController < ApplicationController
     @diary = @user.diaries.find(params[:id])
     if params[:diary][:instrument].present?
       @diary.instrument = Instrument.find(params[:diary][:instrument])
+    end
+    if diary_params[:text].present?
+      @diary.score = Language.get_data(diary_params[:text])
     end
     if @diary.update(diary_params)
        redirect_to user_diary_path(user_id: current_user, id: params[:id]),notice:'投稿完了しました'

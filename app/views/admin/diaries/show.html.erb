@@ -1,18 +1,15 @@
 <div class="row justify-content-center">
-  <% if !@user.is_active %>
-    <h2 class="text-danger font-weight-bold">退会もしくは停止中のユーザー</h2>
-  <% end %>
+  <%= inactive_user_message(@user) %>
 </div>
 
 <div class="row">
-
   <div class="col-4">
-    <div class="col-lg-12">
+    <div class="col-12">
       <%= render 'shared/user_info' %>
     </div>
   </div>
-
   <div class="col-8">
+    <!--日誌詳細-->
     <div class="row border border-secondary p-2">
       <div class="col-12">
         <div class="row align-items-center">
@@ -45,22 +42,18 @@
           </div>
 
           <div class="row">
-            <% if @diary.diary_image.attached? %>
-              <%= image_tag @diary.get_diary_image(100, 100) %>
-            <% end %>
+            <%= display_diary_image(@diary, 100, 100) %>
           </div>
           <div class="row">
             <%= @diary.text %>
           </div>
         </div>
     </div>
-
+    <!--いいねボタン/いいねカウント-->
     <div class="row mt-2 justify-content-end">
-      <p>
-        <%= @diary.favorites.count %> <i class="fas fa-thumbs-up"></i>
-      </p>
+      <%= favorite_diary_link(@diary, @user) %>
     </div>
-
+    <!--コメント表示-->
     <% if @diary.post_comments.present? %>
       <% @diary.post_comments.each do |post_comment| %>
         <div class="card border-secondary mb-2">

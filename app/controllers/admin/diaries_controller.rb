@@ -16,6 +16,8 @@ class Admin::DiariesController < ApplicationController
     @diary = Diary.find(params[:id])
     @user = @diary.user
     @instruments = @user.instruments.all
+    @diaries = @user.diaries.all
+    @score_data = @diaries.pluck(:date, :score)
   end
 
 end

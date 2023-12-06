@@ -9,6 +9,7 @@ class Public::UsersController < ApplicationController
     @instruments = @user.instruments.all
     @diaries = @user.diaries.all.order(date: :asc)
     @diaries = @diaries.tagged_with(params[:tag_name]) if params[:filtered_by_tag]
+    @score_data = @diaries.pluck(:date, :score)
   end
 
   def edit

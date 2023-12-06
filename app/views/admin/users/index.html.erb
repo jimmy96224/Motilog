@@ -32,11 +32,7 @@
             <%= user.email %>
           </td>
           <td>
-            <% if user.is_active %>
-              <div class="text-success font-weight-bold">有効</div>
-            <% else %>
-              <div class="text-muted font-weight-bold">退会</div>
-            <% end %>
+            <%= user_status(user) %>
           </td>
         </tr>
         <% end %>
