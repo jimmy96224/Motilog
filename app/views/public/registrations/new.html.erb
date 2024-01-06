@@ -16,7 +16,7 @@
   <div class="col-6">
     <div class="row justify-content-center mt-3">
       <%= form_with model: @user, url: signup_path do |f| %>
-      <%= render "public/shared/error_messages", resource: resource %>
+      <%= render "shared/errors", obj: @user %>
       <div class="row justify-content-between mt-2">
         <div class="field">
           <%= f.label :名前 %>
